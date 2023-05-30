@@ -21,16 +21,19 @@ if (process.env.NODE_ENV === 'production') {
   enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 }
 
-let currentUser;
+let currentUser = sessionStorage.getItem('currentUser');
+if (currentUser === "null" || currentUser === undefined) { // falsy isnt working(for null), i think because session storage uses strings
+  currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+}
+
 let initialState = {};
 
 if (currentUser) {
-    JSON.parse(sessionStorage.getItem('currentUser')); // parse only if current user exists
-    initialState = {
-        users: {
-        [currentUser.id]: currentUser
-        }
-    };
+  initialState = {
+    users: {
+    [currentUser.id]: currentUser
+    }
+  };
 };
 
 const rootReducer = combineReducers({

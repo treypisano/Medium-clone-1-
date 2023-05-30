@@ -1,6 +1,22 @@
+import React from 'react';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import LoginFormPage from './components/LoginForm/index';
+import Splash from './components/Splash/index';
+
 function App() {
   return (
-    <h1>Hello from App</h1>
+    <>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/login">
+            <LoginFormPage />
+          </Route>
+          <Route path="/">
+            <Splash />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </>
   );
 }
 

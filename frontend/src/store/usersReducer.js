@@ -48,20 +48,19 @@ export const logoutUser = userId => async dispatch => {
 }
 
 export const createUser = user => async dispatch => {
-    // debugger
     let res = await csrfFetch('/api/users', {
         method: 'POST',
         body: JSON.stringify(user)
     });
     let data = await res.json();
     sessionStorage.setItem('currentUser', JSON.stringify(data.user));
+
     dispatch(receiveUser(data.user));
 }
 
 // REDUCER
 const usersReducer = ( state = {}, action ) => {
     const nextState = { ...state };
-
     switch(action.type) {
         case RECEIVE_USER:
             nextState[action.payload.id] = action.payload;
