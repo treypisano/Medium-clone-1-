@@ -10,32 +10,25 @@ export default function LoginPopup({ loginPopup }) {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.user);
     const modalOpen = useSelector(state => state.utilities.modalOpen)
+    const errors = useSelector((state) => {
+      if (Object.keys(state.errors).length !== 0){ // if theres no errors
+        return state.errors
+      } else {
+        return []
+      }
+    })
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState([]);
   
     if (sessionUser) return <Redirect to="/" />;
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      setErrors([]);
-      dispatch({ type: CLOSED_MODEL, payload: "closing modal" })
-      return dispatch(loginUser({ email, password })) // syntactic sugar, key name equal to value 
-        .catch(async (res) => {
-          let data;
-          try {
-            data = await res.clone().json();
-          } catch {
-            data = await res.text(); 
-          }
-          if (data?.errors) setErrors(data.errors);
-          else if (data) setErrors([data]);
-          else setErrors([res.statusText]);
-        }); 
+      dispatch(loginUser({ email, password })) // syntactic sugar, key name equal to value 
       // if logged in succesful, on submit close the modal
         
     }  
-
+    console.log(errors)
     return (
         <Modal isOpen={modalOpen}>
             <h2>Sign In</h2>

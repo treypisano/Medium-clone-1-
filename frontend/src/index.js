@@ -6,6 +6,7 @@ import App from './App';
 import { restoreSession } from './store/csrf';
 import usersReducer from './store/usersReducer';
 import utilitiesReducer from './store/utilitiesReducer';
+import errorsReducer from './store/errorsReducer';
 import {createStore, compose, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import { createUser, loginUser, logoutUser } from './store/usersReducer'; 
@@ -42,7 +43,8 @@ if (currentUser) {
 
 const rootReducer = combineReducers({
   users: usersReducer,
-  utilities: utilitiesReducer
+  utilities: utilitiesReducer,
+  errors: errorsReducer
 })
 
 const store = createStore(rootReducer, initialState, enhancer);
