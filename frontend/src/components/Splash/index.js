@@ -4,13 +4,16 @@ import { Link } from "react-router-dom";
 import './splash.css'
 import logo from './icons8-pie-chart-64.png'
 import Modal from './LoginPopup';
+const OPEN_MODAL = "utilities/modal/OPEN_MODAL"
+const CLOSED_MODEL = "utilities/modal/CLOSE_MODAL"
 
 export default function Splash() {
     const [loginPopup, setLoginPopup] = useState(false)
+    const dispatch = useDispatch()
 
     function handleSignInClick() {
+        dispatch({type: OPEN_MODAL, payload: "opening modal"})
         setLoginPopup(!loginPopup) // when clicked, set popup to opposite of what is currently is
-        console.log(loginPopup)
     }
 
     return (
@@ -27,7 +30,7 @@ export default function Splash() {
                 <div className='Nav-Links'>
                     <p>Our story</p>
                     <p>Membership</p>
-                    <p onClick={handleSignInClick}>Sign In</p>
+                    <p onClick={handleSignInClick} className='Sign-In'>Sign In</p>
                     <p>Get Started</p>
                 </div>
             </div>
@@ -36,7 +39,7 @@ export default function Splash() {
                 <h3>Discover stories, thinking, and expertise from writers on any topic.</h3>
                 <p>Start reading</p>
             </div>
-            <Modal loginPopup={loginPopup}/>
+                <Modal loginPopup={loginPopup}/>
         </div>
     )
 }

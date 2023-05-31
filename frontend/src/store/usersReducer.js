@@ -27,7 +27,7 @@ export const removeUser = userId => ({
 });
 
 // THUNK ACTION CREATORS
-export const loginUser = user => async dispatch => {
+export const loginUser = user => async dispatch => { // {user: {username: trey, password: password}}
     debugger
     let res = await csrfFetch('/api/session', {
         method: 'POST',

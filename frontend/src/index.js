@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import { restoreSession } from './store/csrf';
 import usersReducer from './store/usersReducer';
+import utilitiesReducer from './store/utilitiesReducer';
 import {createStore, compose, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import { createUser, loginUser, logoutUser } from './store/usersReducer'; 
@@ -31,13 +32,17 @@ let initialState = {};
 if (currentUser) {
   initialState = {
     users: {
-    [currentUser.id]: currentUser
+    [currentUser.id]: currentUser,
+    },
+    utilities: {
+      modalOpen: false
     }
   };
 };
 
 const rootReducer = combineReducers({
-  users: usersReducer
+  users: usersReducer,
+  utilities: utilitiesReducer
 })
 
 const store = createStore(rootReducer, initialState, enhancer);
