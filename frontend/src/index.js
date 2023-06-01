@@ -7,6 +7,7 @@ import { restoreSession } from './store/csrf';
 import usersReducer, { csrfFetch } from './store/usersReducer';
 import utilitiesReducer from './store/utilitiesReducer';
 import errorsReducer from './store/errorsReducer';
+import articlesReducer, { fetchArticles } from './store/articlesReducer';
 import {createStore, compose, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import { createUser, loginUser, logoutUser } from './store/usersReducer'; 
@@ -37,6 +38,9 @@ if (currentUser) {
     },
     utilities: {
       modalOpen: false
+    },
+    articles: {
+
     }
   };
 };
@@ -44,10 +48,13 @@ if (currentUser) {
 const rootReducer = combineReducers({
   users: usersReducer,
   utilities: utilitiesReducer,
-  errors: errorsReducer
+  errors: errorsReducer,
+  articles: articlesReducer
 })
 
 const store = createStore(rootReducer, initialState, enhancer);
+
+fetchArticles()
 
 const initializeApp = () => {
   ReactDOM.render(
@@ -67,6 +74,7 @@ async function testFetchArticles() {
   console.log(data)
 }
 
+window.logoutUser = logoutUser
 window.testFetchArticles = testFetchArticles
 window.store = store
 
