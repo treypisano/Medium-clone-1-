@@ -66,8 +66,12 @@ export const createUser = user => async dispatch => {
     let data = await res.json();
     sessionStorage.setItem('currentUser', JSON.stringify(data.user));
 
-    dispatch(receiveUser(data.user));
-}
+    if (data.errors){
+        dispatch({ type: ADD_ERROR, payload: data }) // if theres errors, add to state
+    } else {
+        dispatch(receiveUser(data.user))
+        dispatch({ type: CLOSED_MODEL, payload: "closing modal" })
+    }}
 
 // REDUCER
 const usersReducer = ( state = {}, action ) => {

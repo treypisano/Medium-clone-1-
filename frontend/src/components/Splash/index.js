@@ -12,8 +12,11 @@ export default function Splash() {
     const dispatch = useDispatch()
 
     function handleSignInClick() {
-        dispatch({type: OPEN_MODAL, payload: "opening modal"})
-        setLoginPopup(!loginPopup) // when clicked, set popup to opposite of what is currently is
+        dispatch({type: OPEN_MODAL, payload: "signIn"})
+    }
+
+    function handleSignUpClick() {
+        dispatch({type: OPEN_MODAL, payload: "signUp"})
     }
 
     return (
@@ -31,7 +34,7 @@ export default function Splash() {
                     <p>Our story</p>
                     <p>Membership</p>
                     <p onClick={handleSignInClick} className='Sign-In'>Sign In</p>
-                    <p>Get Started</p>
+                    <p onClick={handleSignUpClick}>Get Started</p>
                 </div>
             </div>
             <div className='under-nav'>
@@ -39,7 +42,7 @@ export default function Splash() {
                 <h3>Discover stories, thinking, and expertise from writers on any topic.</h3>
                 <p>Start reading</p>
             </div>
-                <Modal loginPopup={loginPopup}/>
+                <Modal />
         </div>
     )
 }

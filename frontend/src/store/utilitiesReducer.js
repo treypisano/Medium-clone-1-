@@ -6,10 +6,10 @@ export default function utilitiesReducer (state = {}, action) {
     // debugger 
     switch (action.type) {
         case OPEN_MODAL:
-            nextState.modalOpen = true // hit sign in button
+            nextState.modalOpen = action.payload // hit sign in button
             return nextState
         case CLOSED_MODEL:
-            nextState.modalOpen = false // hit x, or successful sign in
+            nextState.modalOpen = action.payload // hit x, or successful sign in
             return nextState
         default:
             return state 

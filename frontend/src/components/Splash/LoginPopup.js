@@ -2,11 +2,11 @@ import Modal from 'react-modal';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { loginUser } from '../../store/usersReducer';
+import { loginUser, createUser } from '../../store/usersReducer';
 const OPEN_MODAL = "utilities/modal/OPEN_MODAL"
 const CLOSED_MODEL = "utilities/modal/CLOSE_MODAL"
 
-export default function LoginPopup({ loginPopup }) {
+export default function LoginPopup() {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.user);
     const modalOpen = useSelector(state => state.utilities.modalOpen)
@@ -22,19 +22,25 @@ export default function LoginPopup({ loginPopup }) {
   
     if (sessionUser) return <Redirect to="/" />;
   
-    const handleSubmit = (e) => {
+    const handleSignInSubmit = (e) => {
       e.preventDefault();
       dispatch(loginUser({ email, password })) // syntactic sugar, key name equal to value 
       // if logged in succesful, on submit close the modal
         
     }  
-    console.log(errors)
-    return (
-        <Modal isOpen={modalOpen}>
-            <h2>Sign In</h2>
+
+    const handleSignUpSubmit = (e) => {
+      e.preventDefault();
+      dispatch(createUser({ email, password })) // syntactic sugar, key name equal to value 
+      // if logged in succesful, on submit close the modal
+        
+    } 
+    // These fragments should be components, will refactor if i have time
+    const signInFragment = <> 
+    <h2>Sign In</h2>
             <>
             <h1>Login!</h1>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSignInSubmit}>
                     <ul>
                     {errors.map(error => <li key={error}>{error}</li>)}
                     </ul>
@@ -59,7 +65,48 @@ export default function LoginPopup({ loginPopup }) {
                     <button type="submit">Log In</button>
                 </form>
             </>
+    </>
+
+    const signUpFragment = <>
+      <h1>Sign Up</h1>
+        <form onSubmit={handleSignUpSubmit}>
+          <ul>
+            {errors.map((error) => <li key={error}>{error}</li>)}
+          </ul>
+          <label>
+            Email
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+          <button type="submit">Sign Up</button>
+        </form>
+    </>
+
+    if (modalOpen === "signIn") {
+      return (
+        <Modal isOpen={modalOpen === "signIn"}>
+            {signInFragment}
         </Modal>
-    )
+    )} else if (modalOpen === "signUp") {
+      return (
+        <Modal isOpen={modalOpen === "signUp"}>
+            {signUpFragment}
+        </Modal>
+      )
+    }
+    
     
 }
