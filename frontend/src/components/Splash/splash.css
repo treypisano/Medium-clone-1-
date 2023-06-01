@@ -1,15 +1,43 @@
 .splash {
-    background-color: rgb(255, 192, 23);
-    padding-bottom: 10px solid black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
 
+.inner-width {
+    width: 1192px;
+}
+
+.top-half {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.whole-top-half {
+    border-bottom: black solid 1px;
+    width: 100%;
+    background-color: rgb(255, 192, 23);
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+.whole-nav-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid black;
 }
 
 .Nav-Bar {
+    width: 1192px;
     align-items: center;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border-bottom: 1px solid black;
     padding-top: 20px;
     padding-bottom: 20px;
 }
@@ -43,17 +71,22 @@ div.logo > *{
     font-size: 20px;
 }
 
-h2 {
-    font-size: 90px;
+.stay-curious {
+    font-family: gt-super, Georgia, Cambria, "Times New Roman", Times, serif;
+    font-size: 106px;
 }
 
-h3 {
+.discover {
     font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 30px;
 }
 
 .under-nav {
-    border-bottom: 1px solid black;
+        width: 1192px;
+
+    display: block;
+    font-weight: 400;
+    position: relative;
 }
 
 #Get-Started {
@@ -63,6 +96,14 @@ h3 {
     border-radius: 10px;
 }
 
-#start-reading {
+.start-reading {
     font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    border-radius: 99em;
+    border-color: (25, 25, 25, 1);
+    color: white;
+    background-color: black;
+    box-sizing: border-box;
+    text-align: center;
+    width: 213px;
 }
