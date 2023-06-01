@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { loginUser, createUser } from '../../store/usersReducer';
+import './loginpopup.css'
 const OPEN_MODAL = "utilities/modal/OPEN_MODAL"
 const CLOSED_MODEL = "utilities/modal/CLOSE_MODAL"
+
 
 export default function LoginPopup() {
     const dispatch = useDispatch();
@@ -37,9 +39,7 @@ export default function LoginPopup() {
     } 
     // These fragments should be components, will refactor if i have time
     const signInFragment = <> 
-    <h2>Sign In</h2>
-            <>
-            <h1>Login!</h1>
+            <h1>Welcome back.</h1>
                 <form onSubmit={handleSignInSubmit}>
                     <ul>
                     {errors.map(error => <li key={error}>{error}</li>)}
@@ -64,11 +64,10 @@ export default function LoginPopup() {
                     </label>
                     <button type="submit">Log In</button>
                 </form>
-            </>
     </>
 
     const signUpFragment = <>
-      <h1>Sign Up</h1>
+      <h1 >Join Medium.</h1>
         <form onSubmit={handleSignUpSubmit}>
           <ul>
             {errors.map((error) => <li key={error}>{error}</li>)}
@@ -97,12 +96,14 @@ export default function LoginPopup() {
 
     if (modalOpen === "signIn") {
       return (
-        <Modal isOpen={modalOpen === "signIn"}>
+        <Modal isOpen={modalOpen === "signIn"} 
+        className='popup'>
             {signInFragment}
         </Modal>
     )} else if (modalOpen === "signUp") {
       return (
-        <Modal isOpen={modalOpen === "signUp"}>
+        <Modal isOpen={modalOpen === "signUp"}
+        className='popup'>
             {signUpFragment}
         </Modal>
       )

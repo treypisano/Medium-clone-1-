@@ -34,13 +34,13 @@ export default function Splash() {
                     <p>Our story</p>
                     <p>Membership</p>
                     <p onClick={handleSignInClick} className='Sign-In'>Sign In</p>
-                    <p onClick={handleSignUpClick}>Get Started</p>
+                    <p onClick={handleSignUpClick} id="Get-Started">Get Started</p>
                 </div>
             </div>
             <div className='under-nav'>
                 <h2>Stay Curious</h2>
                 <h3>Discover stories, thinking, and expertise from writers on any topic.</h3>
-                <p>Start reading</p>
+                <p id="start-reading">Start reading</p>
             </div>
                 <Modal />
         </div>

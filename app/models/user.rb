@@ -9,6 +9,8 @@ class User < ApplicationRecord
     validates :session_token, presence: true, uniqueness: true
     validates :password, length: { in: 6..255 }, allow_nil: true
 
+    has_many :articles, class_name: "Article", foreign_key: :user_id
+
     def ensure_session_token
         self.session_token ||= generate_unique_session_token
     end
