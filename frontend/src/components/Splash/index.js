@@ -21,6 +21,7 @@ export default function Splash() {
     }
 
     return (
+        <>
         <div className='splash'>
             <div className='Nav-Bar'>
                 <div className='logo'>
@@ -43,8 +44,10 @@ export default function Splash() {
                 <h3>Discover stories, thinking, and expertise from writers on any topic.</h3>
                 <p id="start-reading">Start reading</p>
             </div>
-            <ArticleList />
+            
                 <Modal />
         </div>
+        <ArticleList />
+        </>
     )
 }
