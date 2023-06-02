@@ -5,7 +5,7 @@ import { fetchArticles } from '../../store/articlesReducer';
 import './articleList.css'
 
 export default function ArticleList() {
-    const articles = useSelector(state => Object.values(state.articles))
+    const articles = useSelector(state => Object.values(state.articles).reverse())
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -22,7 +22,7 @@ export default function ArticleList() {
 
     function formatDate(article) {
         const splitDate = article.createdAt.split("-")
-        const month = numToMonth(splitDate[1])    
+        const month = numToMonth(splitDate[1] -1)    
         return `${month} ${splitDate[2].slice(0,2)}`
     }
 
