@@ -44,13 +44,28 @@ export default function Splash() {
                         </div>
                     </div>
                     <div className='under-nav'>
-                        <h2 className='stay-curious'>Stay Curious.</h2>
-                        <h3 className='discover'>Discover stories, thinking, and expertise from writers on any topic.</h3>
+                        <h2 className='stay-curious'>Stay Luxurious.</h2>
+                        <div className='wrap-discover'>
+                            <h3 className='discover'>Discover stories, thinking, and expertise from writers on any topic.</h3>
+                        </div>
                         <p className="start-reading">Start reading</p>
                     </div>
                 </div>
             </div>
-        <ArticleList />
+        <div className='whole-bottom-half'>
+            <div className='bottom-half default-width'>
+                <div className='bottom-half-grid'>
+                    <div className='left-side-grid'>
+                        <ArticleList />
+                    </div>
+                    <div className='right-side-grid'>
+                        <div className='tags'>
+                            <h2 className='tags-title'>Discover more of what matters to you</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <Modal />
         </div>
     )

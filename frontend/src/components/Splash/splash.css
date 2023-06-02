@@ -70,23 +70,29 @@ div.logo > *{
     justify-content: space-evenly;
 }
 
-#title {
+#title {    
+    text-decoration: none;
     font-size: 20px;
 }
 
 .stay-curious {
+    line-height: 95px;
     font-family: gt-super, Georgia, Cambria, "Times New Roman", Times, serif;
     font-size: 106px;
+    font-weight: 400;
+    margin-bottom: 55px;
 }
 
 .discover {
     font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 30px;
+    font-size: 24px;
+    line-height: 24px;
+    color: rgba(41, 41, 41, 1);
+    font-weight: 400;
 }
 
 .under-nav {
-        width: 1192px;
-
+    width: 1192px;
     display: block;
     font-weight: 400;
     position: relative;
@@ -101,13 +107,48 @@ div.logo > *{
 }
 
 .start-reading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 20px;
-    border-radius: 99em;
+    border-radius: 10px;
     border-color: (25, 25, 25, 1);
     color: white;
-    background-color: black;
+    background-color: rgb(40, 40, 40);
     box-sizing: border-box;
     text-align: center;
+    height: 30px;
     width: 213px;
+}
+
+.start-reading:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+.whole-bottom-half {
+    padding: 56px;
+    border-top: 1px solid rgba(230, 230, 230, 1);
+}
+
+.default-width {
+    width: 1192px;
+}
+
+.bottom-half-grid {
+    display: grid;
+    grid-template-columns: 700px 392px;
+}
+
+.tags-title {
+    font-weight: 500;
+    font-size: 16px;
+    color: rgba(41, 41, 41, 1);
+    line-height: 16px;
+    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.wrap-discover {
+    width: 550px;
 }
