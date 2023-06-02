@@ -67,7 +67,7 @@ export default function LoginPopup() {
     </>
 
     const signUpFragment = <>
-      <h1 >Join Medium.</h1>
+      <h1 >Join Premium.</h1>
         <form onSubmit={handleSignUpSubmit}>
           <ul>
             {errors.map((error) => <li key={error}>{error}</li>)}

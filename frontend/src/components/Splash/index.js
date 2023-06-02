@@ -21,30 +21,52 @@ export default function Splash() {
     }
 
     return (
-        <div className='splash'>
-            <div className='Nav-Bar'>
-                <div className='logo'>
-                    <Link to="/">
-                        <img href="/" src={logo}></img>
-                        <p id="title">Premium</p>    
-                    </Link>  
-                </div>
-                    {/* <div className='Middle'>
-                    </div> */}
-                <div className='Nav-Links'>
-                    <p>Our story</p>
-                    <p>Membership</p>
-                    <p onClick={handleSignInClick} className='Sign-In'>Sign In</p>
-                    <p onClick={handleSignUpClick} id="Get-Started">Get Started</p>
+
+        <div className='splash '>
+            <div className='whole-top-half'>
+                <div className="top-half">
+                    <div className='whole-nav-bar'>
+                        <div className='Nav-Bar'>
+                            <div className='logo'>
+                                <Link to="/">
+                                    <img href="/" src={logo}></img>
+                                    <p id="title">Premium</p>    
+                                </Link>  
+                            </div>
+                                {/* <div className='Middle'>
+                                </div> */}
+                            <div className='Nav-Links'>
+                                <p>Our story</p>
+                                <p>Membership</p>
+                                <p onClick={handleSignInClick} className='Sign-In'>Sign In</p>
+                                <p onClick={handleSignUpClick} id="Get-Started">Get Started</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='under-nav'>
+                        <h2 className='stay-curious'>Stay Luxurious.</h2>
+                        <div className='wrap-discover'>
+                            <h3 className='discover'>Discover stories, thinking, and expertise from writers on any topic.</h3>
+                        </div>
+                        <p className="start-reading">Start reading</p>
+                    </div>
                 </div>
             </div>
-            <div className='under-nav'>
-                <h2>Stay Curious</h2>
-                <h3>Discover stories, thinking, and expertise from writers on any topic.</h3>
-                <p id="start-reading">Start reading</p>
+        <div className='whole-bottom-half'>
+            <div className='bottom-half default-width'>
+                <div className='bottom-half-grid'>
+                    <div className='left-side-grid'>
+                        <ArticleList />
+                    </div>
+                    <div className='right-side-grid'>
+                        <div className='tags'>
+                            <h2 className='tags-title'>Discover more of what matters to you</h2>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <ArticleList />
-                <Modal />
+        </div>
+        <Modal />
         </div>
     )
 }
