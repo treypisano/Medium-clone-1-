@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import './splash.css'
 import logo from './icons8-pie-chart-64.png'
 import Modal from './LoginPopup';
+import TrendingBar from '../TrendingBar';
 import ArticleList from '../ArticleList';
 const OPEN_MODAL = "utilities/modal/OPEN_MODAL"
 const CLOSED_MODEL = "utilities/modal/CLOSE_MODAL"
@@ -53,6 +54,7 @@ export default function Splash() {
                 </div>
             </div>
         <div className='whole-bottom-half'>
+            <TrendingBar />
             <div className='bottom-half default-width'>
                 <div className='bottom-half-grid'>
                     <div className='left-side-grid'>

@@ -31,7 +31,7 @@ export default function ArticleList() {
         <div className='whole-article-list'>
             <div className="article-list">
                 {articles.map(article => (
-                    <div className='article-and-picture'>
+                    <div className='article-and-picture' key={article.id}>
                         <div key={article.id}>
                             <p className="author">{article.author}</p>
                             <h3 className="article-list-title">{article.title}</h3>
