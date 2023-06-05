@@ -130,6 +130,7 @@ div.logo > *{
 .whole-bottom-half {
     padding: 56px;
     border-top: 1px solid rgba(230, 230, 230, 1);
+    width: 100%;
 }
 
 .default-width {
@@ -151,4 +152,9 @@ div.logo > *{
 
 .wrap-discover {
     width: 550px;
+}
+
+.bottom-half {
+    margin-left: auto;
+    margin-right: auto;
 }

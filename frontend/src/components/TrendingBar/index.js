@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { loginUser } from '../../store/usersReducer';
+import { formatDate, numToMonth } from '../ArticleList';
 import "./trendingbar.css" 
 
 export default function TrendingBar() {
@@ -18,8 +19,18 @@ export default function TrendingBar() {
                 {articles.map((article, index) => {
                     return (
                     <div className={`single-trending-bar-ele box-${index}`} key={index}>
-                        <p className="author">{article.author}</p>
-                        <p >{article.title}</p> 
+                        <div className='trending-left-side'>
+                            <p>{`0${index+1}`}</p>
+                        </div>
+                        <div className='trending-right-side'>
+                            <p className="author">{article.author}</p>
+                            <p >{article.title}</p> 
+                            <div className="date-min-read-tag">
+                                <p>{formatDate(article)}
+                                </p>
+                                <p>5 min read</p>
+                            </div>
+                        </div>
                     </div>)
                 })}
             </div>

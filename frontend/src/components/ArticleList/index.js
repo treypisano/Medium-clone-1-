@@ -5,6 +5,19 @@ import { fetchArticles } from '../../store/articlesReducer';
 import samplePic from './sample_pic.jpg'
 import './articleList.css'
 
+export function formatDate(article) {
+    const splitDate = article.createdAt.split("-")
+    const month = numToMonth(splitDate[1] -1)    
+    return `${month} ${splitDate[2].slice(0,2)}`
+}
+
+export function numToMonth(numAsString) {
+    const months = ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+    let monthNum = parseInt(numAsString)
+    return months[monthNum]
+}
+
 export default function ArticleList() {
     const articles = useSelector(state => Object.values(state.articles).reverse())
     const dispatch = useDispatch()
@@ -12,20 +25,6 @@ export default function ArticleList() {
     useEffect(() => {
         dispatch(fetchArticles())
     }, [])
-
-    const months = ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-      
-   
-    function numToMonth(numAsString) {
-        let monthNum = parseInt(numAsString)
-        return months[monthNum]
-    }
-
-    function formatDate(article) {
-        const splitDate = article.createdAt.split("-")
-        const month = numToMonth(splitDate[1] -1)    
-        return `${month} ${splitDate[2].slice(0,2)}`
-    }
 
     return (
         <div className='whole-article-list'>

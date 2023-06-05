@@ -28,6 +28,10 @@
     font-size: 13px;
 }
 
+.date-min-read-tag > * {
+    margin-right: 10px;
+}
+
 .article-and-picture {
     display: flex;
     flex-direction: row;

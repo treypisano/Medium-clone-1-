@@ -34,7 +34,7 @@ let initialState = {};
 if (currentUser) {
   initialState = {
     users: {
-    [currentUser.id]: currentUser,
+    [JSON.parse(currentUser).id]: JSON.parse(currentUser),
     },
     utilities: {
       modalOpen: false

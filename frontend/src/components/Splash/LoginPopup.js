@@ -10,7 +10,7 @@ const CLOSED_MODEL = "utilities/modal/CLOSE_MODAL"
 
 export default function LoginPopup() {
     const dispatch = useDispatch();
-    const sessionUser = useSelector(state => state.user);
+    const sessionUser = useSelector(state => state.users);
     const modalOpen = useSelector(state => state.utilities.modalOpen)
     const errors = useSelector((state) => {
       if (Object.keys(state.errors).length !== 0){ // if theres no errors
@@ -21,8 +21,12 @@ export default function LoginPopup() {
     })
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-  
-    if (sessionUser) return <Redirect to="/" />;
+    
+
+    if ((Object.keys(sessionUser).length !== 0)) {
+      // debugger
+      return <Redirect to="/test" />;
+    }
   
     const handleSignInSubmit = (e) => {
       e.preventDefault();
