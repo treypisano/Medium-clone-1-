@@ -32,7 +32,7 @@ export default function ArticleList() {
                 {articles.map(article => (
                     <div className='article-and-picture' key={article.id}>
                         <div key={article.id}>
-                            <p className="author">{article.author}</p>
+                            <p className="author">{article.email}</p>
                             <h3 className="article-list-title">{article.title}</h3>
                             <p className="article-snippet">{article.body.slice(0, 136)}</p>
                             <div className="date-min-read-tag">

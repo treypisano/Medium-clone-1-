@@ -139,7 +139,7 @@ div.logo > *{
 
 .bottom-half-grid {
     display: grid;
-    grid-template-columns: 700px 392px;
+    grid-template-columns: 700px 492px;
 }
 
 .tags-title {

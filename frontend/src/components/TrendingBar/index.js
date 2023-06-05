@@ -28,7 +28,7 @@ export default function TrendingBar() {
                             <p>{`0${index+1}`}</p>
                         </div>
                         <div className='trending-right-side'>
-                            <p className="trending-bar-author">Author Example</p>
+                            <p className="trending-bar-author">{article.email}</p>
                             <p className='trending-bar-title'>{article.title}</p> 
                             <div className="date-min-read-tag">
                                 <p>{formatDate(article)}

@@ -22,7 +22,6 @@ export default function Splash() {
     }
 
     return (
-
         <div className='splash '>
             <div className='whole-top-half'>
                 <div className="top-half">
@@ -61,8 +60,10 @@ export default function Splash() {
                         <ArticleList />
                     </div>
                     <div className='right-side-grid'>
-                        <div className='tags'>
-                            <h2 className='tags-title'>Discover more of what matters to you</h2>
+                        <div className='right-side-grid-inside'>
+                            <div className='tags'>
+                                <h2 className='tags-title'>Discover more of what matters to you</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
