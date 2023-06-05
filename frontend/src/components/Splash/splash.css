@@ -143,8 +143,8 @@ div.logo > *{
 }
 
 .tags-title {
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 15px;
     color: rgba(41, 41, 41, 1);
     line-height: 16px;
     font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -157,4 +157,33 @@ div.logo > *{
 .bottom-half {
     margin-left: auto;
     margin-right: auto;
+}
+
+.right-side-grid {
+    font-weight: 500;
+    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 50px;
+    border-bottom: rgb(212, 212, 212) solid 1px;
+}
+
+.tag {
+    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 12px;
+    background-color: rgb(221, 221, 221);
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 15px;
+    font-size: 14px;
+}
+
+.right-side-grid-inside {
+    width: 75%;
+    height: 75%;
 }

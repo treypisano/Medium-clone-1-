@@ -21,6 +21,12 @@ export default function Splash() {
         dispatch({type: OPEN_MODAL, payload: "signUp"})
     }
 
+    function Tag ({tagName}) {
+        return (
+                <p className='tag'>{tagName}</p>
+        )
+    }
+
     return (
         <div className='splash '>
             <div className='whole-top-half'>
@@ -61,8 +67,16 @@ export default function Splash() {
                     </div>
                     <div className='right-side-grid'>
                         <div className='right-side-grid-inside'>
+                        <h2 className='tags-title'>Discover more of what matters to you</h2>
                             <div className='tags'>
-                                <h2 className='tags-title'>Discover more of what matters to you</h2>
+                                <Tag tagName="Art" />
+                                <Tag tagName="Science" />
+                                <Tag tagName="Math" />
+                                <Tag tagName="Productivity" />
+                                <Tag tagName="Lifestyle" />
+                                <Tag tagName="Fitness" />
+                                <Tag tagName="Driving" />
+                                <Tag tagName="Career" />
                             </div>
                         </div>
                     </div>
