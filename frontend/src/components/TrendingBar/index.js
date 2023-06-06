@@ -10,8 +10,6 @@ export default function TrendingBar() {
     const articles = useSelector(state => Object.values(state.articles).reverse().slice(0,6)) 
     // pulls 6 articles from state
     
-    // debugger
-
     let gridNum = 0 // a counter assign grid class names to each grid ele
     return (
         <>

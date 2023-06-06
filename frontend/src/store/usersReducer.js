@@ -47,7 +47,6 @@ export const loginUser = user => async dispatch => { // {user: {username: trey, 
     if (data.errors){
         dispatch({ type: ADD_ERROR, payload: data }) // if theres errors, add to state
     } else {
-        debugger
         dispatch(receiveUser(data.user))
         dispatch({ type: CLOSED_MODEL, payload: "closing modal" })
     }
@@ -70,7 +69,6 @@ export const createUser = user => async dispatch => {
     });
     let data = await res.json();
     sessionStorage.setItem('currentUser', JSON.stringify(data.user));
-    // debugger
     if (data.length > 0 || data.errors){
         dispatch({ type: ADD_ERROR, payload: data }) // if theres errors, add to state
     } else {

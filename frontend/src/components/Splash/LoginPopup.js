@@ -26,7 +26,6 @@ export default function LoginPopup() {
       dispatch(loginUser({ email, password }))
       .then(
         function (value) {
-          // debugger
           if (value.user) {
             dispatch({type: LOG_IN, payload: "logging in"})
             dispatch({type: REMOVE_ERRORS, payload: "clearing all errors"})
