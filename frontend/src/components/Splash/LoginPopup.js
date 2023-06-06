@@ -20,12 +20,6 @@ export default function LoginPopup() {
     })
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
-
-    if ((Object.keys(sessionUser).length !== 0)) { // if logged in
-      // debugger
-      // return <Redirect to="/test" />;
-    }
   
     const handleSignInSubmit = (e) => {
       e.preventDefault();

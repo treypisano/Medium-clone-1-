@@ -18,9 +18,14 @@
 }
 
 .article-list-title {
+    color: black;
     font-weight: 700;
     font-size: 20px;
 } 
+
+a {
+    text-decoration: none;
+}
 
 .date-min-read-tag {
     display: flex;

@@ -34,8 +34,6 @@ export default function NavBar( ) {
                         <p id="title">Premium</p>    
                     </Link>  
                 </div>
-                    {/* <div className='Middle'>
-                    </div> */}
                 <div className='Nav-Links'>
                     <p>Our story</p>
                     <p>Membership</p>
