@@ -29,8 +29,16 @@ export default function LoginPopup() {
   
     const handleSignInSubmit = (e) => {
       e.preventDefault();
-      dispatch(loginUser({ email, password })) // syntactic sugar, key name equal to value 
-      // if logged in succesful, on submit close the modal
+      dispatch(loginUser({ email, password }))
+      .then(
+        function (value) {
+          // debugger
+          if (value.user) {
+            dispatch({type: LOG_IN, payload: "logging in"})
+            dispatch({type: REMOVE_ERRORS, payload: "clearing all errors"})
+          }
+        }
+      )
         
     }  
 
@@ -40,7 +48,6 @@ export default function LoginPopup() {
       dispatch(createUser({ email, password }))
       .then(
         function (value) {
-          // debugger
           if (value.user) {
             dispatch({type: LOG_IN, payload: "logging in"})
             dispatch({type: REMOVE_ERRORS, payload: "clearing all errors"})

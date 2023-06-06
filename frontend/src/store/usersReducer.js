@@ -52,6 +52,7 @@ export const loginUser = user => async dispatch => { // {user: {username: trey, 
         dispatch({ type: CLOSED_MODEL, payload: "closing modal" })
     }
 
+    return data
 };
 
 export const logoutUser = userId => async dispatch => {
