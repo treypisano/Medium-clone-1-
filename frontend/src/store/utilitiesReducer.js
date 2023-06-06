@@ -1,7 +1,7 @@
 const OPEN_MODAL = "utilities/modal/OPEN_MODAL"
 const CLOSED_MODEL = "utilities/modal/CLOSE_MODAL"
-const LOG_IN = "utilities/loggedIn/LOG_IN"
-const LOG_OUT = "utilities/loggedIn/LOG_OUT"
+export const LOG_IN = "utilities/loggedIn/LOG_IN"
+export const LOG_OUT = "utilities/loggedIn/LOG_OUT"
 
 
 export default function utilitiesReducer (state = {}, action) {
@@ -13,6 +13,12 @@ export default function utilitiesReducer (state = {}, action) {
             return nextState
         case CLOSED_MODEL:
             nextState.modalOpen = action.payload // hit x, or successful sign in
+            return nextState
+        case LOG_OUT:
+            nextState.loggedIn = false
+            return nextState
+        case LOG_IN: 
+            nextState.loggedIn = true
             return nextState
         default:
             return state 

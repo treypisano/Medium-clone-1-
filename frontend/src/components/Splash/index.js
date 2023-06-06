@@ -12,10 +12,12 @@ import NavBar from '../NavBar';
 const OPEN_MODAL = "utilities/modal/OPEN_MODAL"
 const CLOSED_MODEL = "utilities/modal/CLOSE_MODAL"
 
+
 export default function Splash() {
     const sessionUser = useSelector(state => state.users);
-
+    const loggedIn  = useSelector(state => state.utilities.loggedIn)
     const [loginPopup, setLoginPopup] = useState(false)
+
     const dispatch = useDispatch()
 
     function handleSignInClick() {
@@ -26,7 +28,7 @@ export default function Splash() {
         dispatch({type: OPEN_MODAL, payload: "signUp"})
     }
 
-    if ((Object.keys(sessionUser).length !== 0)) { // if logged in
+    if ((Object.keys(sessionUser).length !== 0) && loggedIn) { // if logged in
         return <HomePage loggedIn={true}/>;
     }
 

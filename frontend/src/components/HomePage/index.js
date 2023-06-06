@@ -1,9 +1,12 @@
 import ArticleList from "../ArticleList";
 import BottomHalf from "../BottomHalf";
+import NavBar from "../NavBar";
 
 export default function HomePage({ loggedIn }) {
     return (
-        
-        <BottomHalf loggedIn={ loggedIn }/>
+        <>
+            <NavBar loggedIn={ loggedIn }/>
+            <BottomHalf loggedIn={ loggedIn }/>
+        </>
     )
 }

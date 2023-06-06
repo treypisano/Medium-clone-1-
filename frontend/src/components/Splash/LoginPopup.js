@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { loginUser, createUser } from '../../store/usersReducer';
 import './loginpopup.css'
+import { LOG_IN } from '../../store/utilitiesReducer';
 
 export default function LoginPopup() {
     const dispatch = useDispatch();
@@ -34,7 +35,9 @@ export default function LoginPopup() {
 
     const handleSignUpSubmit = (e) => {
       e.preventDefault();
-      dispatch(createUser({ email, password })) // syntactic sugar, key name equal to value 
+      dispatch(createUser({ email, password })).then(
+        dispatch({type: LOG_IN, payload: "logging in"})
+      ) // syntactic sugar, key name equal to value 
       // if logged in succesful, on submit close the modal
         
     } 

@@ -75,7 +75,10 @@ export const createUser = user => async dispatch => {
     } else {
         dispatch(receiveUser(data.user))
         dispatch({ type: CLOSED_MODEL, payload: "closing modal" })
-    }}
+    }
+
+    return data
+}
 
 // REDUCER
 const usersReducer = ( state = {}, action ) => {
