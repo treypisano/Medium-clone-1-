@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { loginUser, createUser } from '../../store/usersReducer';
 import './loginpopup.css'
 import { LOG_IN } from '../../store/utilitiesReducer';
+const REMOVE_ERRORS = "errors/REMOVE_ERROR";
 
 export default function LoginPopup() {
     const dispatch = useDispatch();
@@ -35,10 +36,17 @@ export default function LoginPopup() {
 
     const handleSignUpSubmit = (e) => {
       e.preventDefault();
-      dispatch(createUser({ email, password })).then(
-        dispatch({type: LOG_IN, payload: "logging in"})
-      ) // syntactic sugar, key name equal to value 
-      // if logged in succesful, on submit close the modal
+
+      dispatch(createUser({ email, password }))
+      .then(
+        function (value) {
+          // debugger
+          if (value.user) {
+            dispatch({type: LOG_IN, payload: "logging in"})
+            dispatch({type: REMOVE_ERRORS, payload: "clearing all errors"})
+          }
+        }
+      )
         
     } 
     // These fragments should be components, will refactor if i have time

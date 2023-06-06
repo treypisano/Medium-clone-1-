@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === 'production') {
 
 let currentUser = sessionStorage.getItem('currentUser');
 // debugger
-if (currentUser) { 
+if (currentUser && currentUser !== "undefined") { 
   currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
 }
 

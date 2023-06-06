@@ -8,7 +8,7 @@ export default function errorsReducer (state = {}, action) {
             // keys same as values
             return Object.values(action.payload)
         case REMOVE_ERRORS:
-            return state
+            return {}
         default:
             return state 
     }
