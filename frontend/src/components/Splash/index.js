@@ -6,11 +6,18 @@ import logo from './icons8-pie-chart-64.png'
 import Modal from './LoginPopup';
 import TrendingBar from '../TrendingBar';
 import ArticleList from '../ArticleList';
+import HomePage from '../HomePage';
+import BottomHalf from '../BottomHalf';
+import NavBar from '../NavBar';
 const OPEN_MODAL = "utilities/modal/OPEN_MODAL"
 const CLOSED_MODEL = "utilities/modal/CLOSE_MODAL"
 
+
 export default function Splash() {
+    const sessionUser = useSelector(state => state.users);
+    const loggedIn  = useSelector(state => state.utilities.loggedIn)
     const [loginPopup, setLoginPopup] = useState(false)
+
     const dispatch = useDispatch()
 
     function handleSignInClick() {
@@ -21,34 +28,15 @@ export default function Splash() {
         dispatch({type: OPEN_MODAL, payload: "signUp"})
     }
 
-    function Tag ({tagName}) {
-        return (
-                <p className='tag'>{tagName}</p>
-        )
+    if ((Object.keys(sessionUser).length !== 0) && loggedIn) { // if logged in
+        return <HomePage loggedIn={true}/>;
     }
 
     return (
         <div className='splash '>
             <div className='whole-top-half'>
                 <div className="top-half">
-                    <div className='whole-nav-bar'>
-                        <div className='Nav-Bar'>
-                            <div className='logo'>
-                                <Link to="/">
-                                    <img href="/" src={logo}></img>
-                                    <p id="title">Premium</p>    
-                                </Link>  
-                            </div>
-                                {/* <div className='Middle'>
-                                </div> */}
-                            <div className='Nav-Links'>
-                                <p>Our story</p>
-                                <p>Membership</p>
-                                <p onClick={handleSignInClick} className='Sign-In'>Sign In</p>
-                                <p onClick={handleSignUpClick} id="Get-Started">Get Started</p>
-                            </div>
-                        </div>
-                    </div>
+                    <NavBar />
                     <div className='under-nav'>
                         <h2 className='stay-curious'>Stay Luxurious.</h2>
                         <div className='wrap-discover'>
@@ -58,31 +46,7 @@ export default function Splash() {
                     </div>
                 </div>
             </div>
-        <div className='whole-bottom-half'>
-            <TrendingBar />
-            <div className='bottom-half default-width'>
-                <div className='bottom-half-grid'>
-                    <div className='left-side-grid'>
-                        <ArticleList />
-                    </div>
-                    <div className='right-side-grid'>
-                        <div className='right-side-grid-inside'>
-                        <h2 className='tags-title'>Discover more of what matters to you</h2>
-                            <div className='tags'>
-                                <Tag tagName="Art" />
-                                <Tag tagName="Science" />
-                                <Tag tagName="Math" />
-                                <Tag tagName="Productivity" />
-                                <Tag tagName="Lifestyle" />
-                                <Tag tagName="Fitness" />
-                                <Tag tagName="Driving" />
-                                <Tag tagName="Career" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <BottomHalf/>
         <Modal />
         </div>
     )

@@ -5,6 +5,9 @@ const ADD_ERROR = "errors/ADD_ERROR"
 const REMOVE_ERRORS = "errors/REMOVE_ERROR"
 const OPEN_MODAL = "utilities/modal/OPEN_MODAL"
 const CLOSED_MODEL = "utilities/modal/CLOSE_MODAL"
+const LOG_IN = "utilities/loggedIn/LOG_IN"
+const LOG_OUT = "utilities/loggedIn/LOG_OUT"
+
 
 
 // ACTION CREATORS
@@ -44,10 +47,12 @@ export const loginUser = user => async dispatch => { // {user: {username: trey, 
     if (data.errors){
         dispatch({ type: ADD_ERROR, payload: data }) // if theres errors, add to state
     } else {
+        debugger
         dispatch(receiveUser(data.user))
         dispatch({ type: CLOSED_MODEL, payload: "closing modal" })
     }
 
+    return data
 };
 
 export const logoutUser = userId => async dispatch => {
@@ -71,7 +76,10 @@ export const createUser = user => async dispatch => {
     } else {
         dispatch(receiveUser(data.user))
         dispatch({ type: CLOSED_MODEL, payload: "closing modal" })
-    }}
+    }
+
+    return data
+}
 
 // REDUCER
 const usersReducer = ( state = {}, action ) => {

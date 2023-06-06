@@ -8,14 +8,7 @@ function App() {
     <>
       <BrowserRouter>
         <Switch>
-          <Route path="/login">
-            <LoginFormPage />
-          </Route>
           <Route path="/">
-            <Splash />
-          </Route>
-          <Route path="/test">  
-          {/* This is a test route, needs to be on for modal to work, this will be home eventaully */}
             <Splash />
           </Route>
         </Switch>

@@ -25,22 +25,30 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 let currentUser = sessionStorage.getItem('currentUser');
-if (currentUser === "null" || currentUser === undefined) { // falsy isnt working(for null), i think because session storage uses strings
+// debugger
+if (currentUser && currentUser !== "undefined") { 
   currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
 }
 
-let initialState = {};
+let initialState = {
+  utilities: {
+    modalOpen: false,
+    loggedIn: false
+  },
+  articles: {
+
+  }};
 
 if (currentUser) {
   initialState = {
     users: {
-    [JSON.parse(currentUser).id]: JSON.parse(currentUser),
+    [currentUser.id]: currentUser,
     },
     utilities: {
-      modalOpen: false
+      modalOpen: false,
+      loggedIn: true
     },
     articles: {
-
     }
   };
 };

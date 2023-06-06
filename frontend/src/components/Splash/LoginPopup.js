@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { loginUser, createUser } from '../../store/usersReducer';
 import './loginpopup.css'
-const OPEN_MODAL = "utilities/modal/OPEN_MODAL"
-const CLOSED_MODEL = "utilities/modal/CLOSE_MODAL"
-
+import { LOG_IN } from '../../store/utilitiesReducer';
+const REMOVE_ERRORS = "errors/REMOVE_ERROR";
 
 export default function LoginPopup() {
     const dispatch = useDispatch();
@@ -23,22 +22,38 @@ export default function LoginPopup() {
     const [password, setPassword] = useState('');
     
 
-    if ((Object.keys(sessionUser).length !== 0)) {
+    if ((Object.keys(sessionUser).length !== 0)) { // if logged in
       // debugger
-      return <Redirect to="/test" />;
+      // return <Redirect to="/test" />;
     }
   
     const handleSignInSubmit = (e) => {
       e.preventDefault();
-      dispatch(loginUser({ email, password })) // syntactic sugar, key name equal to value 
-      // if logged in succesful, on submit close the modal
+      dispatch(loginUser({ email, password }))
+      .then(
+        function (value) {
+          // debugger
+          if (value.user) {
+            dispatch({type: LOG_IN, payload: "logging in"})
+            dispatch({type: REMOVE_ERRORS, payload: "clearing all errors"})
+          }
+        }
+      )
         
     }  
 
     const handleSignUpSubmit = (e) => {
       e.preventDefault();
-      dispatch(createUser({ email, password })) // syntactic sugar, key name equal to value 
-      // if logged in succesful, on submit close the modal
+
+      dispatch(createUser({ email, password }))
+      .then(
+        function (value) {
+          if (value.user) {
+            dispatch({type: LOG_IN, payload: "logging in"})
+            dispatch({type: REMOVE_ERRORS, payload: "clearing all errors"})
+          }
+        }
+      )
         
     } 
     // These fragments should be components, will refactor if i have time
