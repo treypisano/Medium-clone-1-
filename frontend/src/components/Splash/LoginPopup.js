@@ -4,9 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { loginUser, createUser } from '../../store/usersReducer';
 import './loginpopup.css'
-const OPEN_MODAL = "utilities/modal/OPEN_MODAL"
-const CLOSED_MODEL = "utilities/modal/CLOSE_MODAL"
-
 
 export default function LoginPopup() {
     const dispatch = useDispatch();
@@ -23,9 +20,9 @@ export default function LoginPopup() {
     const [password, setPassword] = useState('');
     
 
-    if ((Object.keys(sessionUser).length !== 0)) {
+    if ((Object.keys(sessionUser).length !== 0)) { // if logged in
       // debugger
-      return <Redirect to="/test" />;
+      // return <Redirect to="/test" />;
     }
   
     const handleSignInSubmit = (e) => {
