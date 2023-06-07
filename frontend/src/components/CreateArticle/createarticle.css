@@ -1,0 +1,35 @@
+.create {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 500px;
+}
+
+.create-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+#create-title {
+    background-color: transparent;
+    border-color: transparent;
+    outline: none;
+    width: 500px;
+    font-size: 50px;
+    color: rgb(176, 176, 176);
+}
+
+#body {
+    background-color: transparent;
+    border-color: transparent;
+    outline: none;
+    width: 500px;
+    height: 1000px;
+    font-size: large;
+    color: rgb(176, 176, 176);
+
+}
+
+textarea {
+    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

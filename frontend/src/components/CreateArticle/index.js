@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createArticle } from '../../store/articlesReducer';
+import NavBar from "../NavBar";
+import { useHistory } from "react-router-dom";
+import "./createarticle.css"
 
 export default function CreateArticle () {
-    const [title, setTitle] = useState('');
-    const [body, setBody] = useState('');
+    const [title, setTitle] = useState('Title');
+    const [body, setBody] = useState('Tell Your Story');
     const currentUserId = useSelector(state => Object.values(state.users)[0].id)
-  
+    
+    let history = useHistory()
     const dispatch = useDispatch()
 
     const handleSubmit = (e) => {
@@ -16,34 +20,52 @@ export default function CreateArticle () {
 
         setTitle('');
         setBody('');
+
+        history.push('/')
     };
 
+    function onTitleChange(e) { // if title includes "Title" it will delete the body
+        if (title === "Title" ) {
+            setTitle('')
+        } else {
+            setTitle(e.target.value)
+        }
+        
+    }
+
+    function onBodyChange(e) {
+        if (body === "Tell Your Story"){
+            setBody('')
+        } else {
+            setBody(e.target.value)
+        }
+    }
 
     return (
         <>
-        <h1>
-            Create an Article!
-        </h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                <label htmlFor="title">Title:</label>
-                <input
-                    type="text"
-                    id="title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                </div>
-                <div>
-                <label htmlFor="body">Body:</label>
-                <textarea
-                    id="body"
-                    value={body}
-                    onChange={(e) => setBody(e.target.value)}
-                />
-                </div>
-                <button type="submit">Submit</button>
-            </form>
+        <NavBar />
+        <div className='create-wrapper'>
+            <div className='create'>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                    <input
+                        type="text"
+                        id="create-title"
+                        value={title}
+                        onChange={onTitleChange}
+                    />
+                    </div>
+                    <div>
+                    <textarea
+                        id="body"
+                        value={body}
+                        onChange={onBodyChange}
+                    />
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
       </>
     );
 }
