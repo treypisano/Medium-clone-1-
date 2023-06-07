@@ -29,6 +29,7 @@ export default function CreateArticle () {
             setTitle('')
         } else {
             setTitle(e.target.value)
+            e.target.classList.add("user-touched")
         }
         
     }
@@ -38,6 +39,7 @@ export default function CreateArticle () {
             setBody('')
         } else {
             setBody(e.target.value)
+            e.target.classList.add("user-touched")
         }
     }
 

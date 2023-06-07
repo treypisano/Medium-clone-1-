@@ -1,14 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import logo from './icons8-pie-chart-64.png'
 import { logoutUser } from "../../store/usersReducer";
 import { LOG_OUT } from "../../store/utilitiesReducer";
 import { useState } from "react";
 
+
 const OPEN_MODAL = "utilities/modal/OPEN_MODAL"
 
 export default function NavBar() {
     const loggedIn = useSelector(state => state.utilities.loggedIn)
+    const history = useHistory()
 
     const dispatch = useDispatch()
 
@@ -23,6 +25,7 @@ export default function NavBar() {
     function handleSignOutClick() {
         dispatch(logoutUser())
         dispatch({type: LOG_OUT, payload: "logging out"})
+        history.push("/")
     }
 
 

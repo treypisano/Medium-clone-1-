@@ -23,9 +23,58 @@ h1 {
     font-weight: 400;
 }
 
+.email-input {
+    background-color: transparent;
+    border-color: transparent;
+    outline: none;  
+    font-family: medium-content-title-font,Georgia,Cambria,"Times New Roman",Times,serif;
+    font-size: 20px;
+    width: 12em;
+    text-align: center;
+}
+
+.password-input {
+    background-color: transparent;
+    border-color: transparent;
+    outline: none;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 20px;
+    width: 12em;
+    text-align: center;
+}
+
+.grouped-input > label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: rgb(163, 163, 163) 1px solid;
+}
+
+.grouped-input {
+    margin-bottom: 20px;
+}
+
+.auth-button {
+    font-family: gt-super, Georgia, Cambria, "Times New Roman", Times, serif;
+    font-size: 13px;
+    background-color: rgb(226, 226, 226);
+    padding: 5px;
+    border: 2px solid rgb(173, 173, 173);
+}
+
+.auth-button:hover {
+    cursor: pointer;
+    background-color: rgb(168, 168, 168);
+}
+
+.demo-button {
+    margin-top: 17px;
+}
+
 .ReactModal__Overlay {
     opacity: 0;
-    transition: opacity 250ms ease-in-out;
+    transition: opacity 400ms ease-in-out;
     display: flex;
     flex-direction: column;
     justify-content: center;

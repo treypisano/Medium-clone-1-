@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    width: 500px;
+    width: 650px;
 }
 
 .create-wrapper {
@@ -14,16 +14,19 @@
     background-color: transparent;
     border-color: transparent;
     outline: none;
-    width: 500px;
+    width: 100%;
     font-size: 50px;
     color: rgb(176, 176, 176);
+    margin-bottom: 30px;
+    margin-top: 50px;
+    font-family: medium-content-title-font,Georgia,Cambria,"Times New Roman",Times,serif
 }
 
 #body {
     background-color: transparent;
     border-color: transparent;
     outline: none;
-    width: 500px;
+    width: 100%;
     height: 1000px;
     font-size: large;
     color: rgb(176, 176, 176);
@@ -31,5 +34,9 @@
 }
 
 textarea {
-    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: medium-content-title-font,Georgia,Cambria,"Times New Roman",Times,serif
+}
+
+.user-touched {
+    color: black!important
 }

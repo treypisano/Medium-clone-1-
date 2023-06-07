@@ -6,6 +6,8 @@ import { loginUser, createUser } from '../../store/usersReducer';
 import './loginpopup.css'
 import { LOG_IN } from '../../store/utilitiesReducer';
 const REMOVE_ERRORS = "errors/REMOVE_ERROR";
+const DEMO_EMAIL = "demo@demo.com"
+const DEMO_PASSWORD = "password"
 
 export default function LoginPopup() {
     const dispatch = useDispatch();
@@ -18,6 +20,7 @@ export default function LoginPopup() {
         return []
       }
     })
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
   
@@ -34,6 +37,12 @@ export default function LoginPopup() {
       )
         
     }  
+
+    function handleDemoClick () {
+      dispatch(loginUser({email: DEMO_EMAIL, password: DEMO_PASSWORD}))
+      dispatch({type: LOG_IN, payload: "logging in"})
+      dispatch({type: REMOVE_ERRORS, payload: "clearing all errors"})
+    }
 
     const handleSignUpSubmit = (e) => {
       e.preventDefault();
@@ -56,27 +65,34 @@ export default function LoginPopup() {
                     <ul>
                     {errors.map(error => <li key={error}>{error}</li>)}
                     </ul>
-                    <label>
-                    Email
-                    <input
-                        type="text"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                    </label>
+                    <div className='grouped-input'>
+                      <label>
+                      Email
+                      <input
+                          className='email-input'
+                          type="text"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                      />
+                      </label>
+                    </div>
+                    <div className='grouped-input'>
                     <label>
                     Password
                     <input
+                        className='password-input'
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     </label>
-                    <button type="submit">Log In</button>
+                    </div>
+                    <button className='auth-button' type="submit">Log In</button>
                 </form>
-    </>
+                <button className='auth-button demo-button' onClick={handleDemoClick}>Demo User</button>
+      </>
 
     const signUpFragment = <>
       <h1 >Join Premium.</h1>
@@ -84,26 +100,33 @@ export default function LoginPopup() {
           <ul>
             {errors.map((error) => <li key={error}>{error}</li>)}
           </ul>
-          <label>
-            Email
-            <input
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Password
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </label>
-          <button type="submit">Sign Up</button>
+          <div className='grouped-input'>
+            <label>
+              Email
+              <input
+                className='email-input'
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <div className='grouped-input'>
+            <label>
+              Password
+              <input
+                className='password-input'
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <button className='auth-button' type="submit">Sign Up</button>
         </form>
+        <button className='auth-button demo-button' onClick={handleDemoClick}>Demo User</button>
     </>
 
     if (modalOpen === "signIn") {
