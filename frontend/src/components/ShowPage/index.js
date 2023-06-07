@@ -17,6 +17,9 @@ export default function ShowPage() {
                 <div className="article-show">
                     <h1 className="article-title-show">{article.title}</h1>
                     <p>{article.email}</p>
+                    <div className="claps-comments-box">
+                        
+                    </div>
                     <p>{article.body}</p>
                 </div>
             </div>
