@@ -33,7 +33,7 @@ export default function ArticleList() {
                 {articles.map(article => (
                     <div className='article-and-picture' key={article.id}>
                         <div key={article.id}>
-                            <p className="author">{article.email}</p>
+                            <p className="author">{article.email.split("@")[0]}</p>
                             <Link to={`articles/${article.id}`}>
                                 <h3 className="article-list-title">{article.title}</h3>
                             </Link>

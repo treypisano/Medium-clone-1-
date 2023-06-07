@@ -15,11 +15,24 @@
 .article-title-show {
     font-weight: 600;
     font-size: 50px;
+    line-height: 1em;
 }
 
 .claps-comments-box {
     height: 50px;
     border-top: 1px rgb(201, 201, 201) solid;
     border-bottom: 1px rgb(201, 201, 201) solid;
+}
 
+.article-show-body {
+    line-height: 3em;
+}
+
+.nav-bar-show-page {
+    border-color: rgb(179, 179, 179);
+}
+
+a {
+    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color:black
 }

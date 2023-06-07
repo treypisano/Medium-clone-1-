@@ -6,4 +6,19 @@ class Api::ArticlesController < ApplicationController
         
         render 'api/articles/show'
     end
+
+    def create 
+        @article = Article.new(article_params)
+
+        if @article.save 
+            render json: @article
+        else
+            render json: @article.errors.full_messages, status: 422
+        end
+
+    end
+
+    def article_params
+        params.require(:article).permit(:title, :body, :user_id)
+    end
 end

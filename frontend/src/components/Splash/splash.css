@@ -61,7 +61,16 @@
     cursor: pointer;
     font-size: 14px;
     font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 
+.Nav-Links > a {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 div.logo > *{

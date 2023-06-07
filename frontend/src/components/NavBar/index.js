@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const OPEN_MODAL = "utilities/modal/OPEN_MODAL"
 
-export default function NavBar( ) {
+export default function NavBar() {
     const loggedIn = useSelector(state => state.utilities.loggedIn)
 
     const dispatch = useDispatch()
@@ -25,8 +25,10 @@ export default function NavBar( ) {
         dispatch({type: LOG_OUT, payload: "logging out"})
     }
 
+
+    // insert show page class if on show page
     return (
-        <div className='whole-nav-bar'>
+        <div className={`whole-nav-bar ${loggedIn ? "nav-bar-show-page" : ""}`}> 
             <div className='Nav-Bar'>
                 <div className='logo'>
                     <Link to="/">
@@ -40,6 +42,9 @@ export default function NavBar( ) {
                     {
                         loggedIn ? 
                         <>
+                            <Link to="/articles/create">
+                                <p>Write</p>
+                            </Link>
                             <p onClick={handleSignOutClick} >Sign Out</p>
                         </> :
                         <>

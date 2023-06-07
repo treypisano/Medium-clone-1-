@@ -1,6 +1,7 @@
 import { csrfFetch } from "./usersReducer"
 
 export const RECEIVE_ARTICLES = "articles/RECIEVE_ARTICLES"
+export const RECEIVE_ARTICLE = "articles/RECIEVE_ARTICLE"
 
 // ACTION CREATORS
 
@@ -18,11 +19,20 @@ export const fetchArticles = () => async(dispatch, getState) => { // fetch artic
     dispatch(recieveArticles(articles))
 }
 
+export const createArticle = (article) => async dispatch => {
+    const res = await csrfFetch('/api/articles', {
+        method: 'POST', 
+        body: JSON.stringify(article)
+    })
+}
+
 export default function articlesReducer( state = {}, action ) {
 
     switch (action.type) {
         case RECEIVE_ARTICLES:
             return action.articles
+        case RECEIVE_ARTICLE:
+            return action.article
         default:
             return state
     }

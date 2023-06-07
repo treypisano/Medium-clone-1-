@@ -12,7 +12,7 @@ export default function ShowPage() {
 
     return (
         <>
-            <NavBar></NavBar>
+            <NavBar style="nav-bar-show-page"></NavBar>
             <div className="article-wrapper">
                 <div className="article-show">
                     <h1 className="article-title-show">{article.title}</h1>
@@ -20,7 +20,7 @@ export default function ShowPage() {
                     <div className="claps-comments-box">
                         
                     </div>
-                    <p>{article.body}</p>
+                    <p className="article-show-body">{article.body}</p>
                 </div>
             </div>
         </>
