@@ -34,6 +34,8 @@ The logic for fetching the articles on initial load
 - Errors are stored in a Redux state
 - When the submit button is pressed, the backend will render any errors as JSON, which will then be sent to the front end
 - This is done inside of a thunk action creator, which will dispatch an action that adds these errors to the state
+- ![image](https://github.com/treypisano/Medium-clone-1-/assets/126501514/fe2a1b33-fe4b-447e-8982-5b4823ae0bb4)
+
 ` 
 if (data.errors){
         dispatch({ type: ADD_ERROR, payload: data }) // if theres errors, add to state
@@ -47,6 +49,7 @@ if (data.errors){
 - When an article is clicked, the user is redirected to the article being displayed
 - If the user is the creator of this article, they can click Edit/Delete
 - When a user edits their article, the div becomes editable, using simple state maniuplation
+![image](https://github.com/treypisano/Medium-clone-1-/assets/126501514/3d64c1ce-fed5-4ef9-8172-a3f4bac625cf)
 
 Example of the editable Div (essentialy a textbox)
 `<ContentEditable 
