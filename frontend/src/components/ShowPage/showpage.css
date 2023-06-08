@@ -32,6 +32,10 @@
     flex-direction: row;
 }
 
+.edit-delete > *:hover {
+    cursor: pointer;
+}
+
 .article-show-body {
     line-height: 3em;
 }

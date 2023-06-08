@@ -1,15 +1,25 @@
-import { useParams } from "react-router-dom/cjs/react-router-dom.min"
+import { useParams, useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import { useSelector, useDispatch } from "react-redux"
 import { fetchArticles } from "../../store/articlesReducer"
+import { deleteArticle } from "../../store/articlesReducer"
 import "./showpage.css"
 import NavBar from "../NavBar"
 
 export default function ShowPage() {
+    const dispatch = useDispatch()
+    const history = useHistory()
     const { articleId } = useParams()
     const currentUserId = useSelector(state => Object.values(state.users)[0].id)
     const article = useSelector(function(state) {
         return state.articles[articleId]
     })
+
+    function handleDelete(e) {
+        e.preventDefault();
+
+        dispatch(deleteArticle(articleId))    
+        history.push('/')
+    }
 
     return (
         <>
@@ -23,7 +33,7 @@ export default function ShowPage() {
                         {(article.userId === currentUserId) && 
                             <div className="edit-delete">
                                 <p id="edit">Edit</p>
-                                <p>Delete</p>
+                                <p onClick={handleDelete}>Delete</p>
                             </div>
                         }
                     </div>
