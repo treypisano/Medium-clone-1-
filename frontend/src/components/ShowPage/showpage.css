@@ -19,13 +19,25 @@
 }
 
 .claps-comments-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     height: 50px;
     border-top: 1px rgb(201, 201, 201) solid;
     border-bottom: 1px rgb(201, 201, 201) solid;
 }
 
+.edit-delete {
+    display: flex;
+    flex-direction: row;
+}
+
 .article-show-body {
     line-height: 3em;
+}
+
+#edit {
+    margin-right: 15px;
 }
 
 .nav-bar-show-page {
