@@ -23,6 +23,14 @@ class Api::ArticlesController < ApplicationController
         @article.destroy
     end
 
+    def update 
+        @article = Article.find(params[:id])
+
+        @article.assign_attributes(article_params)
+
+        @article.save!
+    end
+
     def article_params
         params.require(:article).permit(:title, :body, :user_id)
     end

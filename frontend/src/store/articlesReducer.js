@@ -32,6 +32,13 @@ export const deleteArticle = (articleId) => async dispatch => {
     })
 }
 
+export const editArticle = (article) => async dispatch => {
+    const res = await csrfFetch(`/api/articles/${article.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(article)
+    })
+}
+
 export default function articlesReducer( state = {}, action ) {
     switch (action.type) {
         case RECEIVE_ARTICLES:
