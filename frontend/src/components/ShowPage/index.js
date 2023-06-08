@@ -4,6 +4,8 @@ import { useEffect, useState } from "react"
 import { editArticle, fetchArticles } from "../../store/articlesReducer"
 import { deleteArticle } from "../../store/articlesReducer"
 import ContentEditable from 'react-contenteditable';
+import  hand  from './hand.png'
+import  comment  from './comment.png'
 import "./showpage.css"
 import NavBar from "../NavBar"
 
@@ -61,7 +63,10 @@ export default function ShowPage() {
                     <h1 className="article-title-show">{article.title}</h1>
                     <p>{article.email}</p>
                     <div className="claps-comments-box">
-                        <p>Clap!</p>
+                        <div className="claps">
+                            <img id="clap" src={hand}></img>
+                            <p>{article.claps.length}</p>
+                        </div>
                         {(article.userId === currentUserId) && 
                             <div className="edit-delete">
                                 <p id="edit" onClick={handleEdit}>Edit</p>
