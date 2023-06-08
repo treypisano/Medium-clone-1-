@@ -19,11 +19,18 @@ User.create({email: "demo@demo.com", password: "password"})
 25.times do 
     test_user = User.create({email: Faker::Internet.email, password: "password"})
 
-    Article.create({
+    test_article = Article.new({
         title: Faker::Games::LeagueOfLegends.quote,
         body: lorem,
         user_id: test_user.id,
     })
+
+    test_article.save!
+
+    rand(8).times do 
+        test_clap = Clap.new({articles_id: test_article.id, user_id: test_user.id})
+        test_clap.save!
+    end
 end
 
 

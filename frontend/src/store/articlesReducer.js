@@ -13,10 +13,11 @@ export const recieveArticles = articles => {
 }
 
 export const fetchArticles = () => async(dispatch, getState) => { // fetch articles and save in store
-    let res = await csrfFetch('api/articles')
+    let res = await csrfFetch('/api/articles')
     let articles = await res.json() // a JS object of articles
-    
     dispatch(recieveArticles(articles))
+
+    return articles
 }
 
 export const createArticle = (article) => async dispatch => {

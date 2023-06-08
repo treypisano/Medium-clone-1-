@@ -1,6 +1,6 @@
 import { useParams, useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import { useSelector, useDispatch } from "react-redux"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { editArticle, fetchArticles } from "../../store/articlesReducer"
 import { deleteArticle } from "../../store/articlesReducer"
 import ContentEditable from 'react-contenteditable';
@@ -16,9 +16,21 @@ export default function ShowPage() {
     const article = useSelector(function(state) {
         return state.articles[articleId]
     })
-    const [body, setBody] = useState(article.body)
+    const [body, setBody] = useState("")
 
-    console.log(editEnabled)
+    useEffect(() => {
+        dispatch(fetchArticles())
+        .then((articles) => {
+            setBody(articles[articleId].body) 
+        })
+    }, []) 
+
+    if (!article) {
+        return (
+            <div>Loading...</div>
+        )
+    } 
+    
     function handleDelete(e) {
         e.preventDefault();
 
@@ -28,6 +40,10 @@ export default function ShowPage() {
 
     function handleEdit () {
         setEditEnabled(!editEnabled)
+
+        if (!editEnabled) {
+            setBody(article.body)
+        }
     }
 
     function handleUpdateButton() {
@@ -35,7 +51,7 @@ export default function ShowPage() {
         dispatch(editArticle(article))
 
         history.push('/')
-    }
+    }  
 
     return (
         <>
@@ -71,6 +87,7 @@ export default function ShowPage() {
                         }
                         <ContentEditable 
                         id="body"
+                        className="article-show-body"
                         html={body}
                         onChange={(e) => setBody(e.target.value)}
                         style={{color: "black"}}

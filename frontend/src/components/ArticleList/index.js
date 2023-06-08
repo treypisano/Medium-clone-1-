@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { fetchArticles } from '../../store/articlesReducer';
+import ContentEditable from 'react-contenteditable';
 import samplePic from './sample_pic.jpg'
 import './articleList.css'
-
 
 export function formatDate(article) {
     const splitDate = article.createdAt.split("-")
@@ -37,7 +37,10 @@ export default function ArticleList() {
                             <Link to={`articles/${article.id}`}>
                                 <h3 className="article-list-title">{article.title}</h3>
                             </Link>
-                            <p className="article-snippet">{article.body.slice(0, 136)}</p>
+                            <ContentEditable 
+                            className='article-snippet'
+                            disabled={true}
+                            html={article.body.slice(0,30)}/>
                             <div className="date-min-read-tag">
                                 <p>{formatDate(article)}
                                 </p>
