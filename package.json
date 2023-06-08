@@ -21,5 +21,9 @@
   "homepage": "https://github.com/treypisano/Medium-clone-1-#readme",
   "engines": {
     "node": "16.20.0"
+  },
+  "dependencies": {
+    "highlightable": "^1.3.0-beta.0",
+    "react-contenteditable": "^3.3.7"
   }
 }
