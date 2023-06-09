@@ -1,7 +1,7 @@
 import { useParams, useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState } from "react"
-import { editArticle, fetchArticles } from "../../store/articlesReducer"
+import { editArticle, fetchArticles, recieveClap } from "../../store/articlesReducer"
 import { deleteArticle } from "../../store/articlesReducer"
 import ContentEditable from 'react-contenteditable';
 import  hand  from './hand.png'
@@ -13,17 +13,25 @@ export default function ShowPage() {
     const dispatch = useDispatch()
     const history = useHistory()
     const [editEnabled, setEditEnabled] = useState(false)
+    const [clapNum, setClapNum] = useState(0)
     const { articleId } = useParams()
     const currentUserId = useSelector(state => Object.values(state.users)[0].id)
     const article = useSelector(function(state) {
         return state.articles[articleId]
     })
+    const claps = useSelector((state) => {
+        if (state.articles.length === 0) {
+            return state.articles[articleId].claps
+        }
+    })
+    
     const [body, setBody] = useState("")
 
     useEffect(() => {
         dispatch(fetchArticles())
         .then((articles) => {
             setBody(articles[articleId].body) 
+            setClapNum(articles[articleId].claps.length)
         })
     }, []) 
 
@@ -55,6 +63,12 @@ export default function ShowPage() {
         history.push('/')
     }  
 
+    function handleClapClick(e) {
+        dispatch(recieveClap({clap: {user_id: currentUserId, article_id: articleId}}))
+
+        setClapNum(clapNum + 1)
+    }
+
     return (
         <>
             <NavBar style="nav-bar-show-page"></NavBar>
@@ -64,8 +78,8 @@ export default function ShowPage() {
                     <p>{article.email}</p>
                     <div className="claps-comments-box">
                         <div className="claps">
-                            <img id="clap" src={hand}></img>
-                            <p>{article.claps.length}</p>
+                            <img id="clap" src={hand} onClick={handleClapClick}></img>
+                            <p>{clapNum}</p>
                         </div>
                         {(article.userId === currentUserId) && 
                             <div className="edit-delete">

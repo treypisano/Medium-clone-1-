@@ -27,7 +27,7 @@ User.create({email: "demo@demo.com", password: "password"})
 
     test_article.save!
 
-    rand(8).times do 
+    rand(200).times do 
         test_clap = Clap.new({article_id: test_article.id, user_id: test_user.id})
         test_clap.save!
     end

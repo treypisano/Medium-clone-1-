@@ -2,6 +2,7 @@ import { csrfFetch } from "./usersReducer"
 
 export const RECEIVE_ARTICLES = "articles/RECIEVE_ARTICLES"
 export const RECEIVE_ARTICLE = "articles/RECIEVE_ARTICLE"
+export const RECIEVE_CLAP = "articles/RECIEVE_CLAP"
 
 // ACTION CREATORS
 
@@ -40,12 +41,35 @@ export const editArticle = (article) => async dispatch => {
     })
 }
 
+export const recieveClap = (clap) => async dispatch => {
+    const res = await csrfFetch(`/api/claps`, {
+        method: 'POST', 
+        body: JSON.stringify(clap)
+    })
+    
+    const recievedClap = await res.json()
+    
+    dispatch({type: RECIEVE_CLAP, payload: recievedClap})
+}
+
+function addClapToArticles(state, clap) {
+    let currentArticleId = clap.article_id
+    // debugger
+
+    state[currentArticleId].claps.concat([clap])
+    return state
+}
+
 export default function articlesReducer( state = {}, action ) {
+    let nextState = {...state}
     switch (action.type) {
         case RECEIVE_ARTICLES:
             return action.articles
         case RECEIVE_ARTICLE:
             return action.article
+        case RECIEVE_CLAP:
+            // return addClapToArticles(state, clap)
+            return state
         default:
             return state
     }
