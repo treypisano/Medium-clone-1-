@@ -1,9 +1,11 @@
 import { useParams, useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import { useSelector, useDispatch } from "react-redux"
-import { useState } from "react"
-import { editArticle, fetchArticles } from "../../store/articlesReducer"
+import { useEffect, useState } from "react"
+import { editArticle, fetchArticles, recieveClap } from "../../store/articlesReducer"
 import { deleteArticle } from "../../store/articlesReducer"
 import ContentEditable from 'react-contenteditable';
+import  hand  from './hand.png'
+import  comment  from './comment.png'
 import "./showpage.css"
 import NavBar from "../NavBar"
 
@@ -11,14 +13,34 @@ export default function ShowPage() {
     const dispatch = useDispatch()
     const history = useHistory()
     const [editEnabled, setEditEnabled] = useState(false)
+    const [clapNum, setClapNum] = useState(0)
     const { articleId } = useParams()
     const currentUserId = useSelector(state => Object.values(state.users)[0].id)
     const article = useSelector(function(state) {
         return state.articles[articleId]
     })
-    const [body, setBody] = useState(article.body)
+    const claps = useSelector((state) => {
+        if (state.articles.length === 0) {
+            return state.articles[articleId].claps
+        }
+    })
+    
+    const [body, setBody] = useState("")
 
-    console.log(editEnabled)
+    useEffect(() => {
+        dispatch(fetchArticles())
+        .then((articles) => {
+            setBody(articles[articleId].body) 
+            setClapNum(articles[articleId].claps.length)
+        })
+    }, []) 
+
+    if (!article) {
+        return (
+            <div>Loading...</div>
+        )
+    } 
+    
     function handleDelete(e) {
         e.preventDefault();
 
@@ -28,6 +50,10 @@ export default function ShowPage() {
 
     function handleEdit () {
         setEditEnabled(!editEnabled)
+
+        if (!editEnabled) {
+            setBody(article.body)
+        }
     }
 
     function handleUpdateButton() {
@@ -35,7 +61,14 @@ export default function ShowPage() {
         dispatch(editArticle(article))
 
         history.push('/')
+    }  
+    
+    function handleClapClick(e) {
+        dispatch(recieveClap({clap: {user_id: currentUserId, article_id: articleId}}))
+
+        setClapNum(clapNum + 1)
     }
+
 
     return (
         <>
@@ -45,7 +78,10 @@ export default function ShowPage() {
                     <h1 className="article-title-show">{article.title}</h1>
                     <p>{article.email}</p>
                     <div className="claps-comments-box">
-                        <p>Clap!</p>
+                        <div className="claps">
+                            <img id="clap" src={hand} onClick={handleClapClick} ></img>
+                            <p>{clapNum}</p>
+                        </div>
                         {(article.userId === currentUserId) && 
                             <div className="edit-delete">
                                 <p id="edit" onClick={handleEdit}>Edit</p>
@@ -71,6 +107,7 @@ export default function ShowPage() {
                         }
                         <ContentEditable 
                         id="body"
+                        className="article-show-body"
                         html={body}
                         onChange={(e) => setBody(e.target.value)}
                         style={{color: "black"}}

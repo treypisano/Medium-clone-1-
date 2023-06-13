@@ -13,6 +13,10 @@ class User < ApplicationRecord
         class_name: :Article, 
         foreign_key: :user_id
 
+    has_many :clapped_articles, 
+        through: :articles,
+        source: :claps
+
     def ensure_session_token
         self.session_token ||= generate_unique_session_token
     end
