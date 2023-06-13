@@ -62,12 +62,13 @@ export default function ShowPage() {
 
         history.push('/')
     }  
-
+    
     function handleClapClick(e) {
         dispatch(recieveClap({clap: {user_id: currentUserId, article_id: articleId}}))
 
         setClapNum(clapNum + 1)
     }
+
 
     return (
         <>
@@ -78,7 +79,7 @@ export default function ShowPage() {
                     <p>{article.email}</p>
                     <div className="claps-comments-box">
                         <div className="claps">
-                            <img id="clap" src={hand} onClick={handleClapClick}></img>
+                            <img id="clap" src={hand} onClick={handleClapClick} ></img>
                             <p>{clapNum}</p>
                         </div>
                         {(article.userId === currentUserId) && 
