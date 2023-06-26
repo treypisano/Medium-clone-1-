@@ -17,6 +17,14 @@ class User < ApplicationRecord
         through: :articles,
         source: :claps
 
+    has_many :comments, 
+        class_name: :Comment, 
+        foreign_key: :user_id
+
+    has_many :commented_articles,
+        through: :comments, 
+        source: :articles
+
     def ensure_session_token
         self.session_token ||= generate_unique_session_token
     end

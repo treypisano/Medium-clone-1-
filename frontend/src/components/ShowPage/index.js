@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { editArticle, fetchArticles, recieveClap } from "../../store/articlesReducer"
 import { deleteArticle } from "../../store/articlesReducer"
 import ContentEditable from 'react-contenteditable';
+import CreateComment from "../CreateComment/index"
 import  hand  from './hand.png'
 import  comment  from './comment.png'
 import "./showpage.css"
@@ -113,6 +114,7 @@ export default function ShowPage() {
                         style={{color: "black"}}
                         disabled={!editEnabled}/>
                     </form>
+                    <CreateComment />
                 </div>
             </div>
         </>

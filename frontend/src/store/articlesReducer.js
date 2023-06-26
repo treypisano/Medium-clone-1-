@@ -52,6 +52,13 @@ export const recieveClap = (clap) => async dispatch => {
     dispatch({type: RECIEVE_CLAP, payload: recievedClap})
 }
 
+export const createComment = (comment) => async dispatch => {
+    const res = await csrfFetch('/api/comments', {
+        method: 'POST', 
+        body: JSON.stringify(comment)
+    })
+}
+
 function addClapToArticles(state, clap) {
     let currentArticleId = clap.article_id
     // debugger
@@ -68,7 +75,6 @@ export default function articlesReducer( state = {}, action ) {
         case RECEIVE_ARTICLE:
             return action.article
         case RECIEVE_CLAP:
-            // return addClapToArticles(state, clap)
             return state
         default:
             return state
