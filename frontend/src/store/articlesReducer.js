@@ -3,7 +3,7 @@ import { csrfFetch } from "./usersReducer"
 export const RECEIVE_ARTICLES = "articles/RECIEVE_ARTICLES"
 export const RECEIVE_ARTICLE = "articles/RECIEVE_ARTICLE"
 export const RECIEVE_CLAP = "articles/RECIEVE_CLAP"
-
+export const RECIEVE_COMMENT = "articles/RECIEVE_COMMENT"
 // ACTION CREATORS
 
 export const recieveArticles = articles => {
@@ -57,6 +57,8 @@ export const createComment = (comment) => async dispatch => {
         method: 'POST', 
         body: JSON.stringify(comment)
     })
+
+    dispatch({type: RECIEVE_COMMENT, payload: comment})
 }
 
 function addClapToArticles(state, clap) {
@@ -76,6 +78,12 @@ export default function articlesReducer( state = {}, action ) {
             return action.article
         case RECIEVE_CLAP:
             return state
+        case RECIEVE_COMMENT:
+            let newState = {...state}
+            const currentArticleId = action.payload.comment.article_id
+            let previousComments = newState[currentArticleId].comments
+            newState[currentArticleId].comments = [...previousComments, action.payload.comment] 
+            return newState
         default:
             return state
     }
