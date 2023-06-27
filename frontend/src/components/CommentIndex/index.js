@@ -14,17 +14,21 @@ export default function CommentIndex () {
         )
     }
 
+    const handleEdit = (e) => {
+
+    }
+
     return (
         <div className="comments">
             {Object.values(comments).map((comment, i) => {
-                const sameUser = currentUser.email === comment.author.email  
-                // debugger
+                console.log(comment)
+                const sameUser = currentUser?.email === comment.author.email  
                 return (
                     <div className="single-comment">
                         <div className="author-crud">
                             <p className="comment-author" key={comment.id}>{comment.author.email}</p>
                             {sameUser && <div className="update-delete-comment">
-                                <p className="edit-comment">Edit</p>
+                                <p className="edit-comment" onClick={handleEdit}>Edit</p>
                                 <p>Delete</p>
                             </div>}
                         </div>

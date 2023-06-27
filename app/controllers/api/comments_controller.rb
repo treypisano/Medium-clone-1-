@@ -4,10 +4,18 @@ class Api::CommentsController < ApplicationController
         @comment = Comment.new(comments_params)
 
         if @comment.save 
-            render json: @comment
+            render :info
         else
             render json: @comment.errors.full_messages, status: 422
         end
+    end
+
+    def update 
+        @comment = Comment.find(params[:id])
+
+        @comment.assign_attributes(comments_params)
+
+        @comment.save!
     end
 
     def comments_params

@@ -17,7 +17,7 @@ export default function ShowPage() {
     const [editEnabled, setEditEnabled] = useState(false)
     const [clapNum, setClapNum] = useState(0)
     const { articleId } = useParams()
-    const currentUserId = useSelector(state => Object.values(state.users)[0].id)
+    const currentUserId = useSelector(state => Object.values(state.users)[0]?.id)
     const article = useSelector(function(state) {
         return state.articles[articleId]
     })
