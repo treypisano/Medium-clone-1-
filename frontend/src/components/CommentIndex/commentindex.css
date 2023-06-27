@@ -1,9 +1,26 @@
 .single-comment {
     border-bottom: grey solid 1px;
+    display: flex;
+    flex-direction: column;
 }
 
 .comment-author {
     font-weight: 600;
     color: grey;
     font-size: 14px;
+}
+
+.update-delete-comment {
+    display: flex;
+    font-size: 11px;
+    color: grey;
+}
+
+.author-crud {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-comment {
+    margin-right: 10px;
 }

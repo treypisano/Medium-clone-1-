@@ -4,9 +4,8 @@ import "./commentindex.css"
 
 export default function CommentIndex () {
     const { articleId } = useParams()
-    const currentUser = useSelector(state =>  Object.values(state.users))
+    const currentUser = useSelector(state =>  Object.values(state.users).slice(-1)[0])
     const comments = useSelector(state => state.articles?.[articleId].comments)
-    // debugger
     if (!comments) {
         return (
             <div>
@@ -18,10 +17,18 @@ export default function CommentIndex () {
     return (
         <div className="comments">
             {Object.values(comments).map((comment, i) => {
+                const sameUser = currentUser.email === comment.author.email  
+                // debugger
                 return (
                     <div className="single-comment">
-                        <p className="comment-author" key={comment.id}>{comment.author.email}</p>
-                        <p className="comment-body" key={comment.id}>{comment.body}</p>
+                        <div className="author-crud">
+                            <p className="comment-author" key={comment.id}>{comment.author.email}</p>
+                            {sameUser && <div className="update-delete-comment">
+                                <p className="edit-comment">Edit</p>
+                                <p>Delete</p>
+                            </div>}
+                        </div>
+                        <p className="comment-body" key={comment.id}>{comment.body}</p> 
                     </div>
                 )
             })}
