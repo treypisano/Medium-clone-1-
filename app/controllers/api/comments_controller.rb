@@ -15,10 +15,14 @@ class Api::CommentsController < ApplicationController
 
         @comment.assign_attributes(comments_params)
 
-        @comment.save!
+        if @comment.save! 
+            render :info
+        else 
+            render json: @comment.errors.full_messages, status: 422
+        end
     end
 
     def comments_params
-        params.require(:comment).permit(:body, :article_id, :user_id)
+        params.require(:comment).permit(:body, :article_id, :user_id, :id)
     end
 end

@@ -1,6 +1,8 @@
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import "./commentindex.css"
+import { editComment } from "../../store/articlesReducer";
 
 export default function CommentIndex () {
     const { articleId } = useParams()
@@ -12,10 +14,6 @@ export default function CommentIndex () {
                 No Comments!
             </div>
         )
-    }
-
-    const handleEdit = (e) => {
-        
     }
 
     return (
@@ -31,17 +29,47 @@ export default function CommentIndex () {
 
 function SingleComment( {comment, currentUser} ) {
     const sameUser = currentUser?.email === comment.author.email  
+    const [body, setBody] = useState(comment.body)
+    const [editClicked, setEditClicked] = useState(false)
+    const currentUserId = useSelector(state => Object.values(state.users).slice(-1)[0]?.id) // gets the last user in the session
+    const currentUserEmail = useSelector(state => Object.values(state.users).slice(-1)[0]?.email)
+    const { articleId } = useParams()
+    const dispatch = useDispatch()
+
+    const handleEdit = (e) => {
+        setEditClicked(!editClicked)
+    }
+
+    const handleUpdateClick = (e) => {
+        
+        dispatch(editComment({comment: 
+            {body: body, 
+            id: comment.id,
+            user_id: currentUserId, 
+            article_id: articleId
+            }}))
+    }
 
     return (
         <div className="single-comment" key={comment.id}>
             <div className="author-crud">
                 <p className="comment-author" key={comment.id}>{comment.author.email}</p>
                 {sameUser && <div className="update-delete-comment">
-                    <p className="edit-comment" >Edit</p>
+                    <p className="edit-comment" onClick={handleEdit}>Edit</p>
                     <p>Delete</p>
                 </div>}
             </div>
-            <p className="comment-body" key={comment.id}>{comment.body}</p> 
+            {
+                editClicked 
+                ? 
+                    <>
+                        <input type="textbox" value={body} onChange={(e) => setBody(e.target.value)}></input>
+                        <input type="button" value="Update Comment" onClick={handleUpdateClick}></input>
+                    </> 
+                : 
+                    <p className="comment-body" key={comment.id}>{comment.body}</p> 
+            }
+            
         </div>
     )
 }

@@ -4,6 +4,7 @@ export const RECEIVE_ARTICLES = "articles/RECIEVE_ARTICLES"
 export const RECEIVE_ARTICLE = "articles/RECIEVE_ARTICLE"
 export const RECIEVE_CLAP = "articles/RECIEVE_CLAP"
 export const RECIEVE_COMMENT = "articles/RECIEVE_COMMENT"
+export const EDIT_COMMENT = "articles/EDIT_COMMENT"
 // ACTION CREATORS
 
 export const recieveArticles = articles => {
@@ -62,6 +63,17 @@ export const createComment = (newComment) => async dispatch => {
     dispatch({type: RECIEVE_COMMENT, payload: {comment: comment}})
 }
 
+export const editComment = (incomingComment) => async dispatch => {
+    debugger
+    const res = await csrfFetch(`/api/comments/${incomingComment.comment.id}`, {
+        method: 'PATCH', 
+        body: JSON.stringify(incomingComment)
+    })
+    const comment = await res.json()
+
+    dispatch({type: EDIT_COMMENT, payload: {comment: comment}})
+}
+
 function addClapToArticles(state, clap) {
     let currentArticleId = clap.article_id
 
@@ -87,16 +99,10 @@ export default function articlesReducer( state = {}, action ) {
             
             const previousComments = clonedState[currentArticleId].comments;
             previousComments[action.payload.comment.id] = action.payload.comment
-            // If previous comments exist, add one to the last index, if not, just set comment index to 0
-            // if (previousComments) {
-            //     const mostRecentCommentId = Object.keys(previousComments).slice(-1)[0];
-            //     previousComments[parseInt(mostRecentCommentId) + 1] = action.payload.comment;
-            // } else {
-            //     clonedState[currentArticleId].comments = {}
-            //     clonedState[currentArticleId].comments[0] = action.payload.comment;
-            // }
-            
+ 
             return clonedState;
+        case EDIT_COMMENT:
+
         default:
             return state
     }
