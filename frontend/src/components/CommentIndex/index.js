@@ -15,10 +15,12 @@ export default function CommentIndex () {
             </div>
         )
     }
+    const commentsArray = Object.values(comments).reverse()
 
     return (
         <div className="comments">
-            {Object.values(comments).map((comment, i) => {
+            {
+            commentsArray.map((comment, i) => {
                 return (
                     <SingleComment comment={comment} currentUser={currentUser}/>
                 )
@@ -37,6 +39,7 @@ function SingleComment( {comment, currentUser} ) {
     const dispatch = useDispatch()
 
     const handleEdit = (e) => {
+        setBody(comment.body)
         setEditClicked(!editClicked)
     }
 
@@ -55,7 +58,9 @@ function SingleComment( {comment, currentUser} ) {
             }
         })
     }
-    console.log(body)
+    // Edit button isnt working on new comments
+    // When you hit edit, the text box is filled with the most recent comment from intital load
+    // Body state isnt set to the right thing
     return (
         <div className="single-comment" key={comment.id}>
             <div className="author-crud">

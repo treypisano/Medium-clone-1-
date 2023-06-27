@@ -59,7 +59,6 @@ export const createComment = (newComment) => async dispatch => {
         body: JSON.stringify(newComment)
     })
     const comment = await res.json()
-    
     dispatch({type: RECIEVE_COMMENT, payload: {comment: comment}})
 }
 
@@ -87,15 +86,8 @@ export default function articlesReducer( state = {}, action ) {
     let nextState = {...state}
     let previousComments;
     let clonedState;
+    let currentArticleId;
 
-    if (Object.values(state).length > 0) {
-        // Must deeply clone ALL levels of the state with structured clone
-        // Only can clone if values actually exists
-        const currentArticleId = action.payload.comment.articleId;
-        clonedState = structuredClone(state)
-        
-        previousComments = clonedState[currentArticleId].comments;
-    }
     switch (action.type) {
         case RECEIVE_ARTICLES:
             return action.articles
@@ -104,9 +96,17 @@ export default function articlesReducer( state = {}, action ) {
         case RECIEVE_CLAP:
             return state
         case RECIEVE_COMMENT:
+            currentArticleId = action.payload.comment.articleId;
+            clonedState = structuredClone(state)
+        
+            previousComments = clonedState[currentArticleId].comments;
             previousComments[action.payload.comment.id] = action.payload.comment
             return clonedState;
         case EDIT_COMMENT:
+            currentArticleId = action.payload.comment.articleId;
+            clonedState = structuredClone(state)
+        
+            previousComments = clonedState[currentArticleId].comments;
             previousComments[action.payload.comment.id] = action.payload.comment
             return clonedState;
         default:
