@@ -7,7 +7,10 @@
         json.comments do
             article.comments.each do |comment|
                 json.set! comment.id do 
-                    json.extract! comment, :author, :body
+                    json.extract! comment, :body
+                    json.author do 
+                        json.extract! comment.author, :email
+                    end
                 end
             end
         end

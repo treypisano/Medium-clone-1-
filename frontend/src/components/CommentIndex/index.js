@@ -3,9 +3,10 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function CommentIndex () {
     const { articleId } = useParams()
+    const currentUser = useSelector(state =>  Object.values(state.users))
     const comments = useSelector(state => state.articles?.[articleId].comments)
-    
-    if (Object.values(comments).length === 0) {
+    // debugger
+    if (!comments) {
         return (
             <div>
                 No Comments!
@@ -18,8 +19,8 @@ export default function CommentIndex () {
             {Object.values(comments).map((comment, i) => {
                 return (
                     <div>
-                        <li key={comment.id}>{comment.body}</li>
-                        {/* <li key={comment.id}>{comment.author.email}</li> */}
+                        <p className="comment-author" key={comment.id}>{comment.author.email}</p>
+                        <p className="comment-body" key={comment.id}>{comment.body}</p>
                     </div>
                 )
             })}

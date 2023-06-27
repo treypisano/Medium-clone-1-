@@ -7,20 +7,29 @@ export default function CreateComment() {
     const [body, setBody] = useState('')
     const [label, setLabel] = useState('Post')
     const currentUserId = useSelector(state => Object.values(state.users)[0].id)
+    const currentUserEmail = useSelector(state => Object.values(state.users)[0].email)
     const { articleId } = useParams()
     const dispatch = useDispatch()
 
-    const handleSubmit = (e) => {
-        dispatch(createComment({comment: {body: body, user_id: currentUserId, article_id: articleId}}))
+    const handleClick = (e) => {
+        e.preventDefault()
+
+        dispatch(createComment({comment: 
+            {body: body, 
+            user_id: currentUserId, 
+            article_id: articleId, 
+            author: 
+                {email: currentUserEmail}}}))
+
     }
 
     return (
         <div className="new-comment">
             <p>Put a Comment Here!</p>
-            <form>
+            {/* <form> */}
                 <input type="textbox" onChange={(e) => setBody(e.target.value)}></input>
-                <input type="button" value={label} onClick={handleSubmit}></input>
-            </form>
+                <input type="button" value={label} onClick={handleClick} ></input>
+            {/* </form> */}
         </div>
     )
 }
