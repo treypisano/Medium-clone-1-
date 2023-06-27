@@ -79,11 +79,14 @@ export default function articlesReducer( state = {}, action ) {
         case RECIEVE_CLAP:
             return state
         case RECIEVE_COMMENT:
-            let newState = {...state}
-            const currentArticleId = action.payload.comment.article_id
-            let previousComments = newState[currentArticleId].comments
-            newState[currentArticleId].comments = [...previousComments, action.payload.comment] 
-            return newState
+            // debugger
+            let clonedState = structuredClone(state)
+            const currentArticleId = action.payload.comment.article_id;
+            const previousComments = clonedState[currentArticleId].comments;
+            const mostRecentCommentId = Object.keys(previousComments).slice(-1)[0];
+            previousComments[mostRecentCommentId + 1] = action.payload.comment;
+
+            return clonedState
         default:
             return state
     }

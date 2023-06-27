@@ -9,6 +9,7 @@ import  hand  from './hand.png'
 import  comment  from './comment.png'
 import "./showpage.css"
 import NavBar from "../NavBar"
+import CommentIndex from "../CommentIndex"
 
 export default function ShowPage() {
     const dispatch = useDispatch()
@@ -115,6 +116,7 @@ export default function ShowPage() {
                         disabled={!editEnabled}/>
                     </form>
                     <CreateComment />
+                    <CommentIndex />
                 </div>
             </div>
         </>
