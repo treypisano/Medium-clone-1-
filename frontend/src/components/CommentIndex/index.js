@@ -48,8 +48,14 @@ function SingleComment( {comment, currentUser} ) {
             user_id: currentUserId, 
             article_id: articleId
             }}))
+        .then((comment) => {
+            if (comment) {
+                setEditClicked(false)
+                setBody(comment.body)
+            }
+        })
     }
-
+    console.log(body)
     return (
         <div className="single-comment" key={comment.id}>
             <div className="author-crud">

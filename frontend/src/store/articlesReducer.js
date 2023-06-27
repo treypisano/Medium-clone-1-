@@ -64,14 +64,16 @@ export const createComment = (newComment) => async dispatch => {
 }
 
 export const editComment = (incomingComment) => async dispatch => {
-    debugger
     const res = await csrfFetch(`/api/comments/${incomingComment.comment.id}`, {
         method: 'PATCH', 
         body: JSON.stringify(incomingComment)
     })
     const comment = await res.json()
 
-    dispatch({type: EDIT_COMMENT, payload: {comment: comment}})
+    if (res.ok) {
+        dispatch({type: EDIT_COMMENT, payload: {comment: comment}})
+        return comment
+    }
 }
 
 function addClapToArticles(state, clap) {
@@ -83,6 +85,17 @@ function addClapToArticles(state, clap) {
 
 export default function articlesReducer( state = {}, action ) {
     let nextState = {...state}
+    let previousComments;
+    let clonedState;
+
+    if (Object.values(state).length > 0) {
+        // Must deeply clone ALL levels of the state with structured clone
+        // Only can clone if values actually exists
+        const currentArticleId = action.payload.comment.articleId;
+        clonedState = structuredClone(state)
+        
+        previousComments = clonedState[currentArticleId].comments;
+    }
     switch (action.type) {
         case RECEIVE_ARTICLES:
             return action.articles
@@ -91,18 +104,11 @@ export default function articlesReducer( state = {}, action ) {
         case RECIEVE_CLAP:
             return state
         case RECIEVE_COMMENT:
-            // Must deeply clone ALL levels of the state with structured clone
-            // Only can clone if values actually exists
-            
-            const currentArticleId = action.payload.comment.articleId;
-            let clonedState = structuredClone(state)
-            
-            const previousComments = clonedState[currentArticleId].comments;
             previousComments[action.payload.comment.id] = action.payload.comment
- 
             return clonedState;
         case EDIT_COMMENT:
-
+            previousComments[action.payload.comment.id] = action.payload.comment
+            return clonedState;
         default:
             return state
     }
