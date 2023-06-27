@@ -4,8 +4,8 @@ import "./commentindex.css"
 
 export default function CommentIndex () {
     const { articleId } = useParams()
-    const currentUser = useSelector(state =>  Object.values(state.users).slice(-1)[0])
-    const comments = useSelector(state => state.articles?.[articleId].comments)
+    const currentUser = useSelector(state => Object.values(state.users).slice(-1)[0])
+    const comments = useSelector(state => state.articles[articleId]?.comments)
     if (!comments) {
         return (
             <div>

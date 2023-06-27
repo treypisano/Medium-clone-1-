@@ -80,13 +80,19 @@ export default function articlesReducer( state = {}, action ) {
             return state
         case RECIEVE_COMMENT:
             // Must deeply clone ALL levels of the state with structured clone
-            let clonedState = structuredClone(state)
+            // Only can clone if values actually exists
             const currentArticleId = action.payload.comment.article_id;
+            let clonedState = structuredClone(state)
             const previousComments = clonedState[currentArticleId].comments;
-            const mostRecentCommentId = Object.keys(previousComments).slice(-1)[0];
-            previousComments[parseInt(mostRecentCommentId) + 1] = action.payload.comment;
-
-            return clonedState
+            // If previous comments exist, add one to the last index, if not, just set comment index to 0
+            if (previousComments) {
+                const mostRecentCommentId = Object.keys(previousComments).slice(-1)[0];
+                previousComments[parseInt(mostRecentCommentId) + 1] = action.payload.comment;
+            } else {
+                clonedState[currentArticleId].comments = {}
+                clonedState[currentArticleId].comments[0] = action.payload.comment;
+            }
+            return clonedState;
         default:
             return state
     }
