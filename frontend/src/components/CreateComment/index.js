@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function CreateComment() {
     const [body, setBody] = useState('')
     const [label, setLabel] = useState('Post')
-    const currentUserId = useSelector(state => Object.values(state.users)[0].id)
-    const currentUserEmail = useSelector(state => Object.values(state.users)[0].email)
+    const currentUserId = useSelector(state => Object.values(state.users).slice(-1)[0].id) // gets the last user in the session
+    const currentUserEmail = useSelector(state => Object.values(state.users).slice(-1)[0].email)
     const { articleId } = useParams()
     const dispatch = useDispatch()
 

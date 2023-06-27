@@ -1,0 +1,9 @@
+.single-comment {
+    border-bottom: grey solid 1px;
+}
+
+.comment-author {
+    font-weight: 600;
+    color: grey;
+    font-size: 14px;
+}
