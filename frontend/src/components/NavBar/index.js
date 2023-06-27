@@ -10,6 +10,8 @@ const OPEN_MODAL = "utilities/modal/OPEN_MODAL"
 
 export default function NavBar() {
     const loggedIn = useSelector(state => state.utilities.loggedIn)
+    const currentUser = useSelector(state =>  Object.values(state.users).slice(-1)[0])
+
     const history = useHistory()
 
     const dispatch = useDispatch()
@@ -23,7 +25,7 @@ export default function NavBar() {
     }
 
     function handleSignOutClick() {
-        dispatch(logoutUser())
+        dispatch(logoutUser(currentUser.id))
         dispatch({type: LOG_OUT, payload: "logging out"})
         history.push("/")
     }
