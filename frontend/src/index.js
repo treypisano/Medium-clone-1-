@@ -78,7 +78,6 @@ async function testFetchArticles() {
   const res = await csrfFetch('api/articles')
   const data = res.json()
 
-  console.log(data)
 }
 
 window.logoutUser = logoutUser
