@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import "./commentindex.css"
-import { editComment } from "../../store/articlesReducer";
+import { deleteComment, editComment } from "../../store/articlesReducer";
 
 export default function CommentIndex () {
     const { articleId } = useParams()
@@ -43,6 +43,10 @@ function SingleComment( {comment, currentUser} ) {
         setEditClicked(!editClicked)
     }
 
+    const handleCommentDelete = (e) => {
+        dispatch(deleteComment(comment.id))
+    }
+
     const handleUpdateClick = (e) => {
         
         dispatch(editComment({comment: 
@@ -65,7 +69,7 @@ function SingleComment( {comment, currentUser} ) {
                 <p className="comment-author" key={comment.id}>{comment.author.email}</p>
                 {sameUser && <div className="update-delete-comment">
                     <p className="edit-comment" onClick={handleEdit}>Edit</p>
-                    <p>Delete</p>
+                    <p className="delete-comment" onClick={handleCommentDelete}>Delete</p>
                 </div>}
             </div>
             {

@@ -5,6 +5,7 @@ export const RECEIVE_ARTICLE = "articles/RECIEVE_ARTICLE"
 export const RECIEVE_CLAP = "articles/RECIEVE_CLAP"
 export const RECIEVE_COMMENT = "articles/RECIEVE_COMMENT"
 export const EDIT_COMMENT = "articles/EDIT_COMMENT"
+export const DELETE_COMMENT = "articles/DELETE_COMMENT"
 // ACTION CREATORS
 
 export const recieveArticles = articles => {
@@ -75,6 +76,17 @@ export const editComment = (incomingComment) => async dispatch => {
     }
 }
 
+export const deleteComment = (commentId) => async dispatch => {
+    const res = await csrfFetch(`/api/comments/${commentId}`, {
+        method: 'DELETE'
+    })
+    const comment = await res.json()
+
+    if (res.ok) {
+        dispatch({type: DELETE_COMMENT, payload: {comment: comment}})
+    }
+}
+
 function addClapToArticles(state, clap) {
     let currentArticleId = clap.article_id
 
@@ -108,6 +120,13 @@ export default function articlesReducer( state = {}, action ) {
         
             previousComments = clonedState[currentArticleId].comments;
             previousComments[action.payload.comment.id] = action.payload.comment
+            return clonedState;
+        case DELETE_COMMENT: 
+            currentArticleId = action.payload.comment.articleId;
+            clonedState = structuredClone(state)
+        
+            previousComments = clonedState[currentArticleId].comments;
+            delete previousComments[action.payload.comment.id]
             return clonedState;
         default:
             return state

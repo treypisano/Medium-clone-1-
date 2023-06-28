@@ -24,3 +24,11 @@
 .edit-comment {
     margin-right: 10px;
 }
+
+.edit-comment:hover {
+    cursor: pointer;
+}
+
+.delete-comment:hover {
+    cursor: pointer;
+}
