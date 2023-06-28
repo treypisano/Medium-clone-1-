@@ -58,9 +58,7 @@ function SingleComment( {comment, currentUser} ) {
             }
         })
     }
-    // Edit button isnt working on new comments
-    // When you hit edit, the text box is filled with the most recent comment from intital load
-    // Body state isnt set to the right thing
+
     return (
         <div className="single-comment" key={comment.id}>
             <div className="author-crud">
@@ -74,7 +72,7 @@ function SingleComment( {comment, currentUser} ) {
                 editClicked 
                 ? 
                     <>
-                        <input type="textbox" value={body} onChange={(e) => setBody(e.target.value)}></input>
+                        <input type="textbox" required value={body} onChange={(e) => setBody(e.target.value)}></input>
                         <input type="button" value="Update Comment" onClick={handleUpdateClick}></input>
                     </> 
                 : 

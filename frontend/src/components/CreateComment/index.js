@@ -26,10 +26,8 @@ export default function CreateComment() {
     return (
         <div className="new-comment">
             <p>Put a Comment Here!</p>
-            {/* <form> */}
                 <input type="textbox" onChange={(e) => setBody(e.target.value)}></input>
-                <input type="button" value={label} onClick={handleClick} ></input>
-            {/* </form> */}
+                {body.length > 0 && <input type="button" value={label} onClick={handleClick} ></input>}
         </div>
     )
 }
