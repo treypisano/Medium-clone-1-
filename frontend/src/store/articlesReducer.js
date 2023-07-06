@@ -59,6 +59,7 @@ export const createComment = (newComment) => async dispatch => {
         method: 'POST', 
         body: JSON.stringify(newComment)
     })
+    
     const comment = await res.json()
     dispatch({type: RECIEVE_COMMENT, payload: {comment: comment}})
 }
@@ -95,7 +96,6 @@ function addClapToArticles(state, clap) {
 }
 
 export default function articlesReducer( state = {}, action ) {
-    let nextState = {...state}
     let previousComments;
     let clonedState;
     let currentArticleId;
@@ -110,7 +110,7 @@ export default function articlesReducer( state = {}, action ) {
         case RECIEVE_COMMENT:
             currentArticleId = action.payload.comment.articleId;
             clonedState = structuredClone(state)
-        
+
             previousComments = clonedState[currentArticleId].comments;
             previousComments[action.payload.comment.id] = action.payload.comment
             return clonedState;

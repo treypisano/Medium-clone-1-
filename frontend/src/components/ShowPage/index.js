@@ -16,6 +16,7 @@ export default function ShowPage() {
     const history = useHistory()
     const [editEnabled, setEditEnabled] = useState(false)
     const [clapNum, setClapNum] = useState(0)
+    const [commentNum, setCommentNum] = useState(0)
     const { articleId } = useParams()
     const currentUserId = useSelector(state => Object.values(state.users)[0]?.id)
     const article = useSelector(function(state) {
@@ -34,6 +35,7 @@ export default function ShowPage() {
         .then((articles) => {
             setBody(articles[articleId].body) 
             setClapNum(articles[articleId].claps.length)
+            setCommentNum(Object.keys(articles[articleId].comments).length)
         })
     }, []) 
 
@@ -81,8 +83,12 @@ export default function ShowPage() {
                     <p>{article.email}</p>
                     <div className="claps-comments-box">
                         <div className="claps">
-                            <img id="clap" src={hand} onClick={handleClapClick} ></img>
+                            <img class="clap" src={hand} onClick={handleClapClick} ></img>
                             <p>{clapNum}</p>
+                        </div>
+                        <div className="claps" id="comment-display">
+                            <img className="clap"></img>
+                            <p>{commentNum}</p>
                         </div>
                         {(article.userId === currentUserId) && 
                             <div className="edit-delete">
