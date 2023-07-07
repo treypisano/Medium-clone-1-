@@ -17,6 +17,26 @@ class User < ApplicationRecord
         through: :articles,
         source: :claps
 
+    has_many :comments, 
+        class_name: :Comment, 
+        foreign_key: :user_id
+
+    has_many :commented_articles,
+        through: :comments, 
+        source: :articles
+
+    has_many :follows,
+        class_name: :Follow,
+        foreign_key: :followed_id
+
+    has_many :followers,
+        through: :follows,
+        source: :follower
+
+    has_many :followed_users,
+        through: :follows,
+        source: :followed_user
+
     def ensure_session_token
         self.session_token ||= generate_unique_session_token
     end

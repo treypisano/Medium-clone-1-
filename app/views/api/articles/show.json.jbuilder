@@ -3,5 +3,16 @@
         json.extract! article, :id, :title, :body, :user_id, :created_at
         json.extract! article.author, :email
         json.claps article.claps
+
+        json.comments do
+            article.comments.each do |comment|
+                json.set! comment.id do 
+                    json.extract! comment, :id, :body
+                    json.author do 
+                        json.extract! comment.author, :email
+                    end
+                end
+            end
+        end
     end
 end

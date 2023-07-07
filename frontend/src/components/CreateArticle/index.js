@@ -120,10 +120,7 @@ export default function CreateArticle () {
                 </form>
             </div>
         </div>
-
         <div>
-      
- 
     </div>
       </>
     );
