@@ -81,3 +81,11 @@ a {
 #clap:hover {
     cursor: pointer;
 }
+
+.email-and-follow {
+    display: flex;
+}
+
+.email-and-follow p {
+    margin-right: 20px;
+}

@@ -73,6 +73,10 @@ export default function ShowPage() {
         setClapNum(clapNum + 1)
     }
 
+    function handleFollowClick(e) {
+        
+    }
+
 
     return (
         <>
@@ -80,7 +84,10 @@ export default function ShowPage() {
             <div className="article-wrapper">
                 <div className="article-show">
                     <h1 className="article-title-show">{article.title}</h1>
+                    <div className="email-and-follow">
                     <p>{article.email}</p>
+                    <p>Follow!</p>
+                    </div>
                     <div className="claps-comments-box">
                         <div className="claps">
                             <img class="clap" src={hand} onClick={handleClapClick} ></img>

@@ -29,12 +29,16 @@ class User < ApplicationRecord
         class_name: :Follow,
         foreign_key: :followed_id
 
+    has_many :followings,
+        class_name: :Follow,
+        foreign_key: :follower_id
+
     has_many :followers,
         through: :follows,
         source: :follower
 
     has_many :followed_users,
-        through: :follows,
+        through: :followings,
         source: :followed_user
 
     def ensure_session_token

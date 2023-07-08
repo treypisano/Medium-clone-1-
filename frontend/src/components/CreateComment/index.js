@@ -22,10 +22,8 @@ export default function CreateComment() {
             article_id: articleId, 
             author: 
                 {email: currentUserEmail}}}))
-            console.log(body)
         setBody('')
     }
-    console.log(body)
     let commentFragment = 
     <>
         <p>Put a Comment Here!</p>
