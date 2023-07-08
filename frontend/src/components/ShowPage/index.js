@@ -10,6 +10,7 @@ import  comment  from './comment.png'
 import "./showpage.css"
 import NavBar from "../NavBar"
 import CommentIndex from "../CommentIndex"
+import { csrfFetch } from "../../store/usersReducer"
 
 export default function ShowPage() {
     const dispatch = useDispatch()
@@ -74,7 +75,11 @@ export default function ShowPage() {
     }
 
     function handleFollowClick(e) {
-        
+        csrfFetch('/api/follows', {method: 'POST', 
+        body: JSON.stringify({follow: {
+            follower_id: currentUserId,
+            followed_id: article.userId
+        }})})
     }
 
 
@@ -86,7 +91,7 @@ export default function ShowPage() {
                     <h1 className="article-title-show">{article.title}</h1>
                     <div className="email-and-follow">
                     <p>{article.email}</p>
-                    <p>Follow!</p>
+                    <p onClick={handleFollowClick}>Follow!</p>
                     </div>
                     <div className="claps-comments-box">
                         <div className="claps">

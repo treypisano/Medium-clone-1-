@@ -7,5 +7,4 @@ json.user do
             end
         end
     end
-    
 end

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :articles, only: [:show, :index, :create, :destroy, :update]
     resources :claps, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy, :update, :index]
+    resources :follows, only: [:create, :destroy]
   end
   get '*path', to: "static_pages#frontend_index"
 
