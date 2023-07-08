@@ -10,7 +10,7 @@ import  comment  from './comment.png'
 import "./showpage.css"
 import NavBar from "../NavBar"
 import CommentIndex from "../CommentIndex"
-import { csrfFetch } from "../../store/usersReducer"
+import { csrfFetch, recieveFollow } from "../../store/usersReducer"
 
 export default function ShowPage() {
     const dispatch = useDispatch()
@@ -18,8 +18,10 @@ export default function ShowPage() {
     const [editEnabled, setEditEnabled] = useState(false)
     const [clapNum, setClapNum] = useState(0)
     const [commentNum, setCommentNum] = useState(0)
+    const [following, setFollowing] = useState(false)
     const { articleId } = useParams()
     const currentUserId = useSelector(state => Object.values(state.users)[0]?.id)
+    const currentUser = useSelector(state => Object.values(state.users)[0])
     const article = useSelector(function(state) {
         return state.articles[articleId]
     })
@@ -36,7 +38,10 @@ export default function ShowPage() {
         .then((articles) => {
             setBody(articles[articleId].body) 
             setClapNum(articles[articleId].claps.length)
-            setCommentNum(Object.keys(articles[articleId].comments).length)
+            if (articles[articleId].comments) {
+                setCommentNum(Object.keys(articles[articleId].comments).length)
+            }
+            setInitialFollowing(articles[articleId])
         })
     }, []) 
 
@@ -45,7 +50,21 @@ export default function ShowPage() {
             <div>Loading...</div>
         )
     } 
-    
+
+    function setInitialFollowing(article) {
+        const authorId = article.userId
+        if (currentUser) { // If signed in
+            const followedUsers = currentUser.followedUsers
+            if (followedUsers) { // If you are following anyone
+                if (followedUsers[authorId]) {
+                    setFollowing(true)
+                }
+        }  
+        } else {
+            setFollowing(false)
+        }
+    }
+
     function handleDelete(e) {
         e.preventDefault();
 
@@ -74,12 +93,17 @@ export default function ShowPage() {
         setClapNum(clapNum + 1)
     }
 
-    function handleFollowClick(e) {
-        csrfFetch('/api/follows', {method: 'POST', 
+    async function handleFollowClick(e) {
+        const res = await csrfFetch('/api/follows', {method: 'POST', 
         body: JSON.stringify({follow: {
             follower_id: currentUserId,
             followed_id: article.userId
         }})})
+        const data = await res.json()
+        if (!data.errors) {
+            setFollowing(true)
+            dispatch(recieveFollow(data))
+        }
     }
 
 
@@ -91,7 +115,7 @@ export default function ShowPage() {
                     <h1 className="article-title-show">{article.title}</h1>
                     <div className="email-and-follow">
                     <p>{article.email}</p>
-                    <p onClick={handleFollowClick}>Follow!</p>
+                    <p onClick={handleFollowClick}>{following ? <>Following!</> : <>Follow!</>}</p>
                     </div>
                     <div className="claps-comments-box">
                         <div className="claps">
@@ -109,18 +133,6 @@ export default function ShowPage() {
                             </div>
                         }
                     </div>
-                    {/* {editEnabled ? 
-                    <form>
-                        <button className="auth-button" type="submit" onClick={handleUpdateButton}>Update</button>
-                        <ContentEditable 
-                        id="body"
-                        html={body}
-                        onChange={(e) => setBody(e.target.value)}
-                        style={{color: "black"}}/>
-                    </form>
-                    :   
-                        <p className="article-show-body" >{article.body}</p>
-                    } */}
                     <form>
                         {editEnabled &&
                             <button className="auth-button" type="submit" onClick={handleUpdateButton}>Update</button>

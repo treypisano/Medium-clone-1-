@@ -7,8 +7,8 @@ const OPEN_MODAL = "utilities/modal/OPEN_MODAL"
 const CLOSED_MODEL = "utilities/modal/CLOSE_MODAL"
 const LOG_IN = "utilities/loggedIn/LOG_IN"
 const LOG_OUT = "utilities/loggedIn/LOG_OUT"
-
-
+const RECIEVE_FOLLOW = "users/RECIEVE_FOLLOW"
+const REMOVE_FOLLOW = "users/remove_follow"
 
 // ACTION CREATORS
 export const csrfFetch = async (url, options = {}) => {
@@ -33,6 +33,11 @@ export const removeUser = userId => ({
     type: REMOVE_USER,
     userId
 });
+
+export const recieveFollow = follow => ({
+    type: RECIEVE_FOLLOW,
+    follow
+})
 
 // THUNK ACTION CREATORS
 export const loginUser = user => async dispatch => { // {user: {username: trey, password: password}}
@@ -82,6 +87,8 @@ export const createUser = user => async dispatch => {
 // REDUCER
 const usersReducer = ( state = {}, action ) => {
     const nextState = { ...state };
+    let clonedState = structuredClone(state)
+    let currentUser = Object.values(clonedState)[0]
     switch(action.type) {
         case RECEIVE_USER:
             nextState[action.payload.id] = action.payload;
@@ -89,6 +96,12 @@ const usersReducer = ( state = {}, action ) => {
         case REMOVE_USER:
             delete nextState[action.userId];
             return nextState;
+        case RECIEVE_FOLLOW:
+            let followedUsers = currentUser.followedUsers
+            followedUsers[action.follow.id] = action.follow
+            return clonedState;
+        case REMOVE_FOLLOW:
+            return clonedState;
         default:
             return state;
     }
