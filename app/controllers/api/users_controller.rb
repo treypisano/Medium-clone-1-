@@ -15,6 +15,12 @@ class Api::UsersController < ApplicationController
         end
     end
 
+    def update 
+        @user = User.find(params[:id])
+
+        @user.
+    end
+
     private
 
     def user_params

@@ -29,6 +29,10 @@ if (currentUser && currentUser !== "undefined") {
   currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
 }
 
+if (!currentUser.followedUsers) { // If user isn't following anyone, make init state empty obj
+  currentUser.followedUsers = {}
+}
+
 let initialState = {
   utilities: {
     modalOpen: false,
