@@ -39,6 +39,11 @@ export const recieveFollow = follow => ({
     follow
 })
 
+export const reduxRemoveFollow = follow => ({
+    type: REMOVE_FOLLOW,
+    follow
+})
+
 // THUNK ACTION CREATORS
 export const loginUser = user => async dispatch => { // {user: {username: trey, password: password}}
     let res = await csrfFetch('/api/session', {
@@ -87,6 +92,7 @@ export const createUser = user => async dispatch => {
 // REDUCER
 const usersReducer = ( state = {}, action ) => {
     const nextState = { ...state };
+    let followedUsers;
     let clonedState = structuredClone(state)
     let currentUser = Object.values(clonedState)[0]
     switch(action.type) {
@@ -97,10 +103,12 @@ const usersReducer = ( state = {}, action ) => {
             delete nextState[action.userId];
             return nextState;
         case RECIEVE_FOLLOW:
-            let followedUsers = currentUser.followedUsers
+            followedUsers = currentUser.followedUsers
             followedUsers[action.follow.id] = action.follow
             return clonedState;
         case REMOVE_FOLLOW:
+            followedUsers = currentUser.followedUsers // this is bad
+            delete followedUsers[action.follow.id]
             return clonedState;
         default:
             return state;

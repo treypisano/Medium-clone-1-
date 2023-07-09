@@ -10,7 +10,7 @@ import  comment  from './comment.png'
 import "./showpage.css"
 import NavBar from "../NavBar"
 import CommentIndex from "../CommentIndex"
-import { csrfFetch, recieveFollow } from "../../store/usersReducer"
+import { csrfFetch, recieveFollow, reduxRemoveFollow } from "../../store/usersReducer"
 
 export default function ShowPage() {
     const dispatch = useDispatch()
@@ -93,7 +93,15 @@ export default function ShowPage() {
         setClapNum(clapNum + 1)
     }
 
-    async function handleFollowClick(e) {
+    function handleFollowClick(e) {
+        if (e.target.innerHTML === "Follow!") {
+            addFollow()
+        } else if (e.target.innerHTML === "Following!"){
+            removeFollow()
+        }
+    }
+
+    async function addFollow() {
         const res = await csrfFetch('/api/follows', {method: 'POST', 
         body: JSON.stringify({follow: {
             follower_id: currentUserId,
@@ -106,6 +114,14 @@ export default function ShowPage() {
         }
     }
 
+    async function removeFollow() {
+        const res = await csrfFetch(`/api/follows/${article.userId}`, {method: 'DELETE'})
+        const data = await res.json()
+        if (!data.errors) {
+            setFollowing(false)
+            dispatch(reduxRemoveFollow(data))
+        }
+    }
 
     return (
         <>
