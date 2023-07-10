@@ -33,9 +33,9 @@ export default function Splash() {
 
     return (
         <div className='splash '>
+            <NavBar />
             <div className='whole-top-half'>
                 <div className="top-half">
-                    <NavBar />
                     <div className='under-nav'>
                         <div id="left-gif">
                         <h2 className='stay-curious'>Stay Luxurious.</h2>

@@ -32,7 +32,7 @@ function ListItem (article) {
                 <ContentEditable 
                 className='article-snippet'
                 disabled={true}
-                html={article.body.slice(0,30)}/>
+                html={`${article.body.slice(0,100)}...`}/>
                 <div className="date-min-read-tag">
                     <p>{formatDate(article)}
                     </p>

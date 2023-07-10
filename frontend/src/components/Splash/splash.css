@@ -30,6 +30,15 @@
     align-items: center;
     width: 100%;
     border-bottom: 1px solid black;
+    position: sticky;
+    top: 0px;
+    z-index: 10;
+    background-color: rgb(255, 192, 23);
+    transition: background-color 300ms linear;
+}
+
+.below {
+    background-color: white;
 }
 
 .Nav-Bar {

@@ -37,9 +37,8 @@
 }
 
 .trending-bar-title {
-    font-weight: 700;
-    /* max-height: 2em;
-    overflow: hidden; */
+    font-weight: 800;
+    font-size: 14px;
 }
 
 .trending-bar-author {
