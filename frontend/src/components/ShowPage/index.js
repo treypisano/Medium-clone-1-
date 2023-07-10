@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState } from "react"
 import { editArticle, fetchArticles, recieveClap } from "../../store/articlesReducer"
 import { deleteArticle } from "../../store/articlesReducer"
+import spinningGif from "../Splash/output-onlinegiftools.gif"
 import ContentEditable from 'react-contenteditable';
 import CreateComment from "../CreateComment/index"
 import  hand  from './hand.png'
@@ -30,7 +31,7 @@ export default function ShowPage() {
             return state.articles[articleId].claps
         }
     })
-    
+    debugger
     const [body, setBody] = useState("")
 
     useEffect(() => {
@@ -122,7 +123,7 @@ export default function ShowPage() {
             dispatch(reduxRemoveFollow(data))
         }
     }
-
+    // body && ---- Simply means if article isn't loaded yet
     return (
         <>
             <NavBar style="nav-bar-show-page"></NavBar>
@@ -133,13 +134,13 @@ export default function ShowPage() {
                     <p>{article.email}</p>
                     {currentUser && <p onClick={handleFollowClick}>{following ? <>Following!</> : <>Follow!</>}</p>}
                     </div>
-                    <div className="claps-comments-box">
+                    {body && <div className="claps-comments-box"> 
                         <div className="claps">
                             <img class="clap" src={hand} onClick={handleClapClick} ></img>
                             <p>{clapNum}</p>
                         </div>
                         <div className="claps" id="comment-display">
-                            <img className="clap"></img>
+                            <img className="clap" src={comment}></img>
                             <p>{commentNum}</p>
                         </div>
                         {(article.userId === currentUserId) && 
@@ -148,21 +149,21 @@ export default function ShowPage() {
                                 <p onClick={handleDelete}>Delete</p>
                             </div>
                         }
-                    </div>
-                    <form>
+                    </div>}
+                    <form className="edit-form">
                         {editEnabled &&
                             <button className="auth-button" type="submit" onClick={handleUpdateButton}>Update</button>
                         }
-                        <ContentEditable 
+                        {body ? <ContentEditable 
                         id="body"
                         className="article-show-body"
                         html={body}
                         onChange={(e) => setBody(e.target.value)}
                         style={{color: "black"}}
-                        disabled={!editEnabled}/>
+                        disabled={!editEnabled}/> : <img src={spinningGif} className="loading-gif"></img>}
                     </form>
-                    <CreateComment />
-                    <CommentIndex />
+                    {body && <><CreateComment />
+                    <CommentIndex /></>}
                 </div>
             </div>
         </>

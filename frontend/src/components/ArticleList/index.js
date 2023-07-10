@@ -76,10 +76,10 @@ export default function ArticleList() {
     return (
         <div className='whole-article-list'>
             <div className="article-list">
-                <div className='feed-indicator'>
+                {currentUser && <div className='feed-indicator'> 
                     <p onClick={() => onFeedClick(RECOMENDED, setFeedType)}>Recomended</p>
                     {currentUser && <p onClick={() => onFeedClick(FOLLOWING, setFeedType)}>Following</p>}
-                </div>
+                </div>}
                 {feedType === RECOMENDED ? 
                     articles.map(article => (
                         ListItem(article)
