@@ -31,7 +31,6 @@ export default function ShowPage() {
             return state.articles[articleId].claps
         }
     })
-    debugger
     const [body, setBody] = useState("")
 
     useEffect(() => {
@@ -135,13 +134,15 @@ export default function ShowPage() {
                     {currentUser && <p onClick={handleFollowClick}>{following ? <>Following!</> : <>Follow!</>}</p>}
                     </div>
                     {body && <div className="claps-comments-box"> 
-                        <div className="claps">
-                            <img class="clap" src={hand} onClick={handleClapClick} ></img>
-                            <p>{clapNum}</p>
-                        </div>
-                        <div className="claps" id="comment-display">
-                            <img className="clap" src={comment}></img>
-                            <p>{commentNum}</p>
+                        <div className="claps-comments">
+                            <div className="claps">
+                                <img class="clap" src={hand} onClick={handleClapClick} ></img>
+                                <p>{clapNum}</p>
+                            </div>
+                            <div className="claps" id="comment-display">
+                                <img className="clap" src={comment}></img>
+                                <p>{commentNum}</p>
+                            </div>
                         </div>
                         {(article.userId === currentUserId) && 
                             <div className="edit-delete">
@@ -151,9 +152,6 @@ export default function ShowPage() {
                         }
                     </div>}
                     <form className="edit-form">
-                        {editEnabled &&
-                            <button className="auth-button" type="submit" onClick={handleUpdateButton}>Update</button>
-                        }
                         {body ? <ContentEditable 
                         id="body"
                         className="article-show-body"
@@ -161,6 +159,9 @@ export default function ShowPage() {
                         onChange={(e) => setBody(e.target.value)}
                         style={{color: "black"}}
                         disabled={!editEnabled}/> : <img src={spinningGif} className="loading-gif"></img>}
+                        {editEnabled &&
+                            <button className="auth-button" type="submit" onClick={handleUpdateButton}>Update</button>
+                        }
                     </form>
                     {body && <><CreateComment />
                     <CommentIndex /></>}

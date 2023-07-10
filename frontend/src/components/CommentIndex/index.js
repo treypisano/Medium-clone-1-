@@ -10,8 +10,8 @@ export default function CommentIndex () {
     const comments = useSelector(state => state.articles[articleId]?.comments)
     if (!comments) {
         return (
-            <div>
-                No Comments!
+            <div className="no-comments">
+                No Comments! 😔
             </div>
         )
     }

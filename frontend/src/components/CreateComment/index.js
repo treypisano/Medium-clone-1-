@@ -2,8 +2,7 @@ import { createComment } from "../../store/articlesReducer"
 import { useParams, useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import { useState } from "react"
 import { useDispatch, useSelector } from 'react-redux';
-
-
+import "./create-comment.css"
 
 export default function CreateComment() {
     const [body, setBody] = useState('')
@@ -26,9 +25,11 @@ export default function CreateComment() {
     }
     let commentFragment = 
     <>
-        <p>Put a Comment Here!</p>
-        <input type="textbox" onChange={(e) => setBody(e.target.value)} value={body}></input>
-        {body.length > 0 && <input type="button" value={label} onClick={handleClick} ></input>}
+        <p id="thoughts">What are your thoughts?</p>
+        <form>
+        <textarea id="comment-box" onChange={(e) => setBody(e.target.value)} value={body}></textarea>
+        </form>
+        {body.length > 0 && <input type="button" value={label} id="post-comment" onClick={handleClick} ></input>}
     </>
 
     return (
