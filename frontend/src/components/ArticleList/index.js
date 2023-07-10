@@ -64,7 +64,7 @@ function onFeedClick(feedType, setter) {
 
 export default function ArticleList() {
     const articles = useSelector(state => Object.values(state.articles).reverse())
-    const followedUsers = useSelector(state => Object.values(state.users)[0].followedUsers)
+    const followedUsers = useSelector(state => Object.values(state.users)[0]?.followedUsers)
     const dispatch = useDispatch()
     const [feedType, setFeedType] = useState(RECOMENDED)
 
