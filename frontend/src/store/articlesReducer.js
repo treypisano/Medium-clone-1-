@@ -110,7 +110,9 @@ export default function articlesReducer( state = {}, action ) {
         case RECIEVE_COMMENT:
             currentArticleId = action.payload.comment.articleId;
             clonedState = structuredClone(state)
-
+            if (!clonedState.comments) {
+                clonedState[currentArticleId].comments = {}
+            }
             previousComments = clonedState[currentArticleId].comments;
             previousComments[action.payload.comment.id] = action.payload.comment
             return clonedState;
