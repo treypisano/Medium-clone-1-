@@ -42,7 +42,7 @@ export default function Splash() {
                         <div className='wrap-discover'>
                             <h3 className='discover'>Discover stories, thinking, and expertise from writers on any topic.</h3>
                         </div>
-                        <p className="start-reading">Start reading</p>
+                        <p className="start-reading" onClick={handleSignUpClick}>Start reading</p>
                         </div>
                         <img id='splash-gif' src={splashGif}/>
                     </div>

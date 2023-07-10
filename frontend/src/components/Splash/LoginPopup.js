@@ -135,6 +135,10 @@ export default function LoginPopup() {
         <button className='auth-button demo-button' onClick={handleDemoClick}>Demo User</button>
     </>
 
+    // function changeNavBarZIndex() {
+
+    // }
+
     if (modalOpen === "signIn") {
       return (
         <Modal isOpen={modalOpen === "signIn"} 
