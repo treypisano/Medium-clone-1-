@@ -131,7 +131,7 @@ export default function ShowPage() {
                     <h1 className="article-title-show">{article.title}</h1>
                     <div className="email-and-follow">
                     <p>{article.email}</p>
-                    <p onClick={handleFollowClick}>{following ? <>Following!</> : <>Follow!</>}</p>
+                    {currentUser && <p onClick={handleFollowClick}>{following ? <>Following!</> : <>Follow!</>}</p>}
                     </div>
                     <div className="claps-comments-box">
                         <div className="claps">

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { loginUser } from '../../store/usersReducer';
 import { formatDate, numToMonth } from '../ArticleList';
 import  trendingIcon  from './trending.png'
@@ -27,7 +27,9 @@ export default function TrendingBar() {
                         </div>
                         <div className='trending-right-side'>
                             <p className="trending-bar-author">{article.email.split("@")[0]}</p>
-                            <p className='trending-bar-title'>{article.title.slice(0,40)}</p> 
+                            <Link to={`articles/${article.id}`}>
+                                <p className='trending-bar-title'>{article.title.slice(0,40)}</p> 
+                            </Link>
                             <div className="date-min-read-tag">
                                 <p>{formatDate(article)}
                                 </p>

@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { loginUser, createUser } from '../../store/usersReducer';
 import './loginpopup.css'
 import { LOG_IN } from '../../store/utilitiesReducer';
+import { CLOSED_MODEL } from '.';
 const REMOVE_ERRORS = "errors/REMOVE_ERROR";
 const DEMO_EMAIL = "demo@demo.com"
 const DEMO_PASSWORD = "password"
@@ -37,6 +38,11 @@ export default function LoginPopup() {
       )
         
     }  
+
+    const handleModalClose = (e) => {
+      dispatch(dispatch({type: CLOSED_MODEL, payload: "closing"})
+      )
+    }
 
     function handleDemoClick () {
       dispatch(loginUser({email: DEMO_EMAIL, password: DEMO_PASSWORD}))
@@ -133,16 +139,21 @@ export default function LoginPopup() {
       return (
         <Modal isOpen={modalOpen === "signIn"} 
         className='popup'>
+          <div className='close-modal'>
+            <p onClick={handleModalClose}>X</p>
+          </div>
+          <div className='under-x'>
             {signInFragment}
+          </div>
         </Modal>
     )} else if (modalOpen === "signUp") {
       return (
         <Modal isOpen={modalOpen === "signUp"}
         className='popup'>
+          <div className='under-x'>
             {signUpFragment}
+          </div>
         </Modal>
       )
-    }
-    
-    
+    } 
 }

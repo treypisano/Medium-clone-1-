@@ -1,12 +1,11 @@
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import logo from './icons8-pie-chart-64.png'
+import logo from './premium-logo.png'
 import { logoutUser } from "../../store/usersReducer";
 import { LOG_OUT } from "../../store/utilitiesReducer";
 import { useState } from "react";
-
-
-const OPEN_MODAL = "utilities/modal/OPEN_MODAL"
+import Modal from '../Splash/LoginPopup';
+import { OPEN_MODAL, CLOSED_MODEL } from "../Splash";
 
 export default function NavBar() {
     const loggedIn = useSelector(state => state.utilities.loggedIn)
@@ -30,15 +29,13 @@ export default function NavBar() {
         history.push("/")
     }
 
-
     // insert show page class if on show page
     return (
         <div className={`whole-nav-bar ${loggedIn ? "nav-bar-show-page" : ""}`}> 
             <div className='Nav-Bar'>
                 <div className='logo'>
                     <Link to="/">
-                        <img href="/" src={logo}></img>
-                        <p id="title">Premium</p>    
+                        <img href="/" id="top-logo" src={logo}></img>
                     </Link>  
                 </div>
                 <div className='Nav-Links'>
@@ -59,6 +56,7 @@ export default function NavBar() {
                     }
                 </div>
             </div>
+            <Modal />
         </div>
     )
 }

@@ -1,8 +1,4 @@
 .popup {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     background-color: rgb(255, 255, 255);
     width: 678px;
     min-height: 695px;
@@ -11,9 +7,18 @@
     outline: 0px;
 }
 
-.popup > * {
+.under-x {
+    margin-top: 6em;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.under-x > * {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
     font-family: gt-super, Georgia, Cambria, "Times New Roman", Times, serif;
 }
@@ -88,7 +93,7 @@ h1 {
 }
 
 .ReactModal__Content {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     align-items: center;
 }
@@ -99,4 +104,18 @@ h1 {
 
 .ReactModal__Overlay--before-close{
     opacity: 0;
+}
+
+.close-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.close-modal p {
+    margin-right: 20px;
+}
+
+.close-modal p:hover {
+    cursor: pointer;
 }
