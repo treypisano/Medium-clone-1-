@@ -65,6 +65,7 @@ function onFeedClick(feedType, setter) {
 export default function ArticleList() {
     const articles = useSelector(state => Object.values(state.articles).reverse())
     const followedUsers = useSelector(state => Object.values(state.users)[0]?.followedUsers)
+    const currentUser = useSelector(state => Object.values(state.users)[0])
     const dispatch = useDispatch()
     const [feedType, setFeedType] = useState(RECOMENDED)
 
@@ -77,7 +78,7 @@ export default function ArticleList() {
             <div className="article-list">
                 <div className='feed-indicator'>
                     <p onClick={() => onFeedClick(RECOMENDED, setFeedType)}>Recomended</p>
-                    <p onClick={() => onFeedClick(FOLLOWING, setFeedType)}>Following</p>
+                    {currentUser && <p onClick={() => onFeedClick(FOLLOWING, setFeedType)}>Following</p>}
                 </div>
                 {feedType === RECOMENDED ? 
                     articles.map(article => (

@@ -29,7 +29,7 @@ if (currentUser && currentUser !== "undefined") {
   currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
 }
 
-if (currentUser && currentUser.followedUsers) { // If user isn't following anyone, make init state empty obj
+if (currentUser && !currentUser.followedUsers) { // If user isn't following anyone, make init state empty obj
   currentUser.followedUsers = {}
 }
 
