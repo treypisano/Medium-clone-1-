@@ -90,10 +90,12 @@ export default function ShowPage() {
     }  
     
     function handleClapClick(e) {
-        dispatch(recieveClap({clap: {user_id: currentUserId, article_id: articleId}}))
+        if (currentUser) {
+            dispatch(recieveClap({clap: {user_id: currentUserId, article_id: articleId}}))
 
-        setClapNum(clapNum + 1)
-        setClapClicked(true)
+            setClapNum(clapNum + 1)
+            setClapClicked(true)
+        }
     }
 
     function handleFollowClick(e) {
