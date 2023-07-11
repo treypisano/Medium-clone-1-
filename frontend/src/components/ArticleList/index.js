@@ -46,7 +46,7 @@ function ListItem (article) {
     )
 }
 
-function filterByFollows(articles, followedUsers) {
+function filterByFollows(articles, followedUsers = {}) {
     // want to return an object of articles
     let filteredArticles = []
     for (const articleId in articles) { // Loop through each article in Redux State

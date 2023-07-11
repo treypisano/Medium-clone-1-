@@ -104,6 +104,9 @@ const usersReducer = ( state = {}, action ) => {
             return nextState;
         case RECIEVE_FOLLOW:
             followedUsers = currentUser.followedUsers
+            if (!followedUsers) {
+                followedUsers = {}
+            }
             followedUsers[action.follow.id] = action.follow
             return clonedState;
         case REMOVE_FOLLOW:

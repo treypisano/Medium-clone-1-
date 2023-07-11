@@ -154,6 +154,9 @@ export default function LoginPopup() {
       return (
         <Modal isOpen={modalOpen === "signUp"}
         className='popup'>
+          <div className='close-modal'>
+            <p onClick={handleModalClose}>X</p>
+          </div>
           <div className='under-x'>
             {signUpFragment}
           </div>

@@ -39,8 +39,8 @@ export default function NavBar() {
                     </Link>  
                 </div>
                 <div className='Nav-Links'>
-                    <p>Our story</p>
-                    <p>Membership</p>
+                    {/* <p>Our story</p> */}
+                    {/* <p>Membership</p> */}
                     {
                         loggedIn ? 
                         <>

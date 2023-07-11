@@ -1,6 +1,6 @@
 import { useParams, useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import { useSelector, useDispatch } from "react-redux"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { editArticle, fetchArticles, recieveClap } from "../../store/articlesReducer"
 import { deleteArticle } from "../../store/articlesReducer"
 import spinningGif from "../Splash/output-onlinegiftools.gif"
@@ -20,6 +20,7 @@ export default function ShowPage() {
     const [clapNum, setClapNum] = useState(0)
     const [commentNum, setCommentNum] = useState(0)
     const [following, setFollowing] = useState(false)
+    const ref = useRef(null)
     const { articleId } = useParams()
     const currentUserId = useSelector(state => Object.values(state.users)[0]?.id)
     const currentUser = useSelector(state => Object.values(state.users)[0])
@@ -96,7 +97,7 @@ export default function ShowPage() {
     function handleFollowClick(e) {
         if (e.target.innerHTML === "Follow!") {
             addFollow()
-        } else if (e.target.innerHTML === "Following!"){
+        } else if (e.target.innerHTML === "Unfollow!"){
             removeFollow()
         }
     }
@@ -122,6 +123,11 @@ export default function ShowPage() {
             dispatch(reduxRemoveFollow(data))
         }
     }
+
+    function handleCommentClick(e) {
+        console.log("h")
+        ref.current?.scrollIntoView({behavior: 'smooth'});
+    }
     // body && ---- Simply means if article isn't loaded yet
     return (
         <>
@@ -131,16 +137,16 @@ export default function ShowPage() {
                     <h1 className="article-title-show">{article.title}</h1>
                     <div className="email-and-follow">
                     <p>{article.email}</p>
-                    {currentUser && <p onClick={handleFollowClick}>{following ? <>Following!</> : <>Follow!</>}</p>}
+                    {body && currentUser && <p onClick={handleFollowClick} id="follow-button">{following ? <>Unfollow!</> : <>Follow!</>}</p>}
                     </div>
                     {body && <div className="claps-comments-box"> 
                         <div className="claps-comments">
                             <div className="claps">
-                                <img class="clap" src={hand} onClick={handleClapClick} ></img>
+                                <img className="clap" src={hand} onClick={handleClapClick} ></img>
                                 <p>{clapNum}</p>
                             </div>
                             <div className="claps" id="comment-display">
-                                <img className="clap" src={comment}></img>
+                                <img className="clap" src={comment} onClick={handleCommentClick}></img>
                                 <p>{commentNum}</p>
                             </div>
                         </div>
@@ -163,6 +169,7 @@ export default function ShowPage() {
                             <button className="auth-button" type="submit" onClick={handleUpdateButton}>Update</button>
                         }
                     </form>
+                    <div ref={ref}></div>
                     {body && <><CreateComment />
                     <CommentIndex /></>}
                 </div>
