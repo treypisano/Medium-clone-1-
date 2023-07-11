@@ -97,7 +97,10 @@ const usersReducer = ( state = {}, action ) => {
     let currentUser = Object.values(clonedState)[0]
     switch(action.type) {
         case RECEIVE_USER:
-            nextState[action.payload.id] = action.payload;
+            nextState[action.payload.id] = action.payload; // This is setting followed users to empty object if user is not following anyone
+            if (!nextState[action.payload.id].followedUsers) { // Has to do with j builder sending nothing from back end if theres no followings
+                nextState[action.payload.id].followedUsers = {}
+            }
             return nextState;
         case REMOVE_USER:
             delete nextState[action.userId];
