@@ -20,6 +20,7 @@ export default function ShowPage() {
     const [clapNum, setClapNum] = useState(0)
     const [commentNum, setCommentNum] = useState(0)
     const [following, setFollowing] = useState(false)
+    const [clapClicked, setClapClicked] = useState(false)
     const ref = useRef(null)
     const { articleId } = useParams()
     const currentUserId = useSelector(state => Object.values(state.users)[0]?.id)
@@ -92,6 +93,7 @@ export default function ShowPage() {
         dispatch(recieveClap({clap: {user_id: currentUserId, article_id: articleId}}))
 
         setClapNum(clapNum + 1)
+        setClapClicked(true)
     }
 
     function handleFollowClick(e) {
@@ -125,8 +127,15 @@ export default function ShowPage() {
     }
 
     function handleCommentClick(e) {
-        console.log("h")
         ref.current?.scrollIntoView({behavior: 'smooth'});
+    }
+
+    function setClapClass () {
+        if (clapClicked) {
+            return "clap shake-clap"
+        } else {
+            return "clap"
+        }
     }
     // body && ---- Simply means if article isn't loaded yet
     return (
@@ -142,11 +151,11 @@ export default function ShowPage() {
                     {body && <div className="claps-comments-box"> 
                         <div className="claps-comments">
                             <div className="claps">
-                                <img className="clap" src={hand} onClick={handleClapClick} ></img>
+                                <img className={setClapClass()} src={hand} onClick={handleClapClick} ></img>
                                 <p>{clapNum}</p>
                             </div>
                             <div className="claps" id="comment-display">
-                                <img className="clap" src={comment} onClick={handleCommentClick}></img>
+                                <img className="clap"  src={comment} onClick={handleCommentClick}></img>
                                 <p>{commentNum}</p>
                             </div>
                         </div>
