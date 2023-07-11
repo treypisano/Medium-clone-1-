@@ -67,8 +67,16 @@ export default function CreateArticle () {
         color = "black"
     }
 
-    function onBoldClick () {
+    function onBoldClick (e) {
+        
+    }
 
+    function handleTextClick(e) {
+        if (e.target.innerHTML === "Tell Your Story" ) {
+            setBody("")
+        } else if (e.target.value === "Title" ) {
+            setTitle("")
+        }
     }
 
     // useEffect(() => {
@@ -105,6 +113,7 @@ export default function CreateArticle () {
                         id="create-title"
                         value={title}
                         onChange={onTitleChange}
+                        onClick={handleTextClick}
                     />
                     </div>
                     <div>
@@ -113,6 +122,7 @@ export default function CreateArticle () {
                         html={body}
                         onChange={onBodyChange}
                         onMouseUp={onMouseUp}
+                        onClick={handleTextClick}
                         style={{color: color}}
                     />
                     <button className="auth-button" type="submit">Submit</button>
