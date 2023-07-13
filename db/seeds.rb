@@ -395,12 +395,13 @@ all_articles = [article_1, article_2, article_3, article_4, article_5, article_6
 
 Article.destroy_all
 User.destroy_all
+Clap.destroy_all
 
 User.create({email: "demo@demo.com", password: "password"})
 
 count = 0
 
-250.times do 
+25.times do 
     test_user = User.create({email: Faker::Internet.email, password: "password"})
 
     if count < 10 
@@ -411,7 +412,6 @@ count = 0
 
         test_clap = Clap.new({article_id: test_article.id, user_id: test_user.id})
         test_clap.save!
-
     end
 
 end
