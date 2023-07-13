@@ -43,17 +43,6 @@ export const editArticle = (article) => async dispatch => {
     })
 }
 
-export const recieveClap = (clap) => async dispatch => {
-    const res = await csrfFetch(`/api/claps`, {
-        method: 'POST', 
-        body: JSON.stringify(clap)
-    })
-    
-    const recievedClap = await res.json()
-    
-    dispatch({type: RECIEVE_CLAP, payload: recievedClap})
-}
-
 export const createComment = (newComment) => async dispatch => {
     const res = await csrfFetch('/api/comments', {
         method: 'POST', 

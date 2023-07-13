@@ -7,6 +7,7 @@ import { restoreSession } from './store/csrf';
 import usersReducer, { csrfFetch } from './store/usersReducer';
 import utilitiesReducer from './store/utilitiesReducer';
 import errorsReducer from './store/errorsReducer';
+import clapsReducer from './store/clapsReducer';
 import articlesReducer, { fetchArticles } from './store/articlesReducer';
 import {createStore, compose, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
@@ -52,6 +53,8 @@ if (currentUser) {
       loggedIn: true
     },
     articles: {
+    },
+    claps: {
     }
   };
 };
@@ -60,7 +63,8 @@ const rootReducer = combineReducers({
   users: usersReducer,
   utilities: utilitiesReducer,
   errors: errorsReducer,
-  articles: articlesReducer
+  articles: articlesReducer,
+  claps: clapsReducer
 })
 
 const store = createStore(rootReducer, initialState, enhancer);

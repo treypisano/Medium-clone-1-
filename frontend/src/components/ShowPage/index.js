@@ -1,7 +1,8 @@
 import { useParams, useHistory } from "react-router-dom/cjs/react-router-dom.min"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState, useRef } from "react"
-import { editArticle, fetchArticles, recieveClap } from "../../store/articlesReducer"
+import { editArticle, fetchArticles } from "../../store/articlesReducer"
+import { deleteClap, recieveClap } from "../../store/clapsReducer"
 import { deleteArticle } from "../../store/articlesReducer"
 import spinningGif from "../Splash/output-onlinegiftools.gif"
 import ContentEditable from 'react-contenteditable';
@@ -12,13 +13,14 @@ import "./showpage.css"
 import NavBar from "../NavBar"
 import CommentIndex from "../CommentIndex"
 import { csrfFetch, recieveFollow, reduxRemoveFollow } from "../../store/usersReducer"
+import { recieveClaps } from "../../store/clapsReducer"
 
 export default function ShowPage() {
     const dispatch = useDispatch()
     const history = useHistory()
     const [editEnabled, setEditEnabled] = useState(false)
-    const [clapNum, setClapNum] = useState(0)
-    const [userClapped, setUserClapped] = useState(0)
+    const clapNum = useSelector(state => Object.values(state.claps).length)
+    const [userClapped, setUserClapped] = useState(false)
     const [commentNum, setCommentNum] = useState(0)
     const [following, setFollowing] = useState(false)
     const [clapClicked, setClapClicked] = useState(false)
@@ -40,12 +42,15 @@ export default function ShowPage() {
         dispatch(fetchArticles()) // This runs on a page load ONE TIME
         .then((articles) => {
             setBody(articles[articleId].body) // Set the body text
-            setClapNum(articles[articleId].claps.length) // Set the number of claps
             if (articles[articleId].comments) {
                 setCommentNum(Object.keys(articles[articleId].comments).length) // Set number of comments
             }
             setInitialFollowing(articles[articleId])
+            if (currentUser) {
+                setUserClapped(checkUserClapped(articles[articleId], currentUser))
+            }
         })
+        dispatch(recieveClaps(articleId))
     }, []) 
 
     if (!article) {
@@ -53,6 +58,20 @@ export default function ShowPage() {
             <div>Loading...</div>
         )
     } 
+
+    function checkUserClapped(article, user) {
+        const userClappedArticles = user.clappedArticles
+        
+        if (!userClappedArticles) {
+            return false
+        }
+
+        if (userClappedArticles[article.id]) {
+            return true 
+        } else {
+            return false
+        }
+    }
 
     function setInitialFollowing(article) {
         const authorId = article.userId
@@ -91,12 +110,27 @@ export default function ShowPage() {
     }  
     
     function handleClapClick(e) {
-        if (currentUser) {
-            dispatch(recieveClap({clap: {user_id: currentUserId, article_id: articleId}}))
-
-            setClapNum(clapNum + 1)
-            setClapClicked(true)
+        if (!currentUser) {
+            return null
         }
+        if (!userClapped) {
+            dispatch(recieveClap({clap: {user_id: currentUserId, article_id: articleId}}))  
+                .then((clap) => {
+                    if (!clap.errors) { // If there are no errors
+                        setClapClicked(true)
+                        setUserClapped(true)
+                    }
+                })
+        } else {
+            dispatch(deleteClap(currentUserId, article.id))
+                .then((deletedClap) => {
+                    if (!deletedClap.errors) {
+                        setUserClapped(false)
+                        setClapClicked(false)
+                    }
+                })
+        }
+        
     }
 
     function handleFollowClick(e) {
@@ -140,6 +174,14 @@ export default function ShowPage() {
             return "clap"
         }
     }
+
+    function setClapStyle () {
+        if (userClapped) {
+            return "clapped"
+        } else {
+            return ""
+        }
+    }
     // body && ---- Simply means if article isn't loaded yet
     return (
         <>
@@ -154,8 +196,8 @@ export default function ShowPage() {
                     {body && <div className="claps-comments-box"> 
                         <div className="claps-comments">
                             <div className="claps">
-                                <img className={setClapClass()} src={hand} onClick={handleClapClick} ></img>
-                                <p>{clapNum}</p>
+                                <img className={setClapClass()} src={hand} onClick={handleClapClick}></img>
+                                <p className={setClapStyle()}>{clapNum}</p>
                             </div>
                             <div className="claps" id="comment-display">
                                 <img className="clap"  src={comment} onClick={handleCommentClick}></img>
