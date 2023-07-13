@@ -400,7 +400,7 @@ User.create({email: "demo@demo.com", password: "password"})
 
 count = 0
 
-25.times do 
+250.times do 
     test_user = User.create({email: Faker::Internet.email, password: "password"})
 
     if count < 10 
@@ -409,10 +409,9 @@ count = 0
         test_article.save!
         count += 1
 
-        rand(200).times do 
-            test_clap = Clap.new({article_id: test_article.id, user_id: test_user.id})
-            test_clap.save!
-        end
+        test_clap = Clap.new({article_id: test_article.id, user_id: test_user.id})
+        test_clap.save!
+
     end
 
 end
