@@ -18,6 +18,7 @@ export default function ShowPage() {
     const history = useHistory()
     const [editEnabled, setEditEnabled] = useState(false)
     const [clapNum, setClapNum] = useState(0)
+    const [userClapped, setUserClapped] = useState(0)
     const [commentNum, setCommentNum] = useState(0)
     const [following, setFollowing] = useState(false)
     const [clapClicked, setClapClicked] = useState(false)
@@ -36,12 +37,12 @@ export default function ShowPage() {
     const [body, setBody] = useState("")
 
     useEffect(() => {
-        dispatch(fetchArticles())
+        dispatch(fetchArticles()) // This runs on a page load ONE TIME
         .then((articles) => {
-            setBody(articles[articleId].body) 
-            setClapNum(articles[articleId].claps.length)
+            setBody(articles[articleId].body) // Set the body text
+            setClapNum(articles[articleId].claps.length) // Set the number of claps
             if (articles[articleId].comments) {
-                setCommentNum(Object.keys(articles[articleId].comments).length)
+                setCommentNum(Object.keys(articles[articleId].comments).length) // Set number of comments
             }
             setInitialFollowing(articles[articleId])
         })

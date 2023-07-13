@@ -14,4 +14,12 @@ json.user do
             end
         end
     end
+
+    json.claps do 
+        @user.clapped_articles.each do |article|
+            json.set! article.id do
+                json.extract! article, :id, :title
+            end
+        end
+    end
 end

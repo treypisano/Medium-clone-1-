@@ -13,9 +13,13 @@ class User < ApplicationRecord
         class_name: :Article, 
         foreign_key: :user_id
 
+    has_many :claps,
+        class_name: :Clap,
+        foreign_key: :user_id
+
     has_many :clapped_articles, 
-        through: :articles,
-        source: :claps
+        through: :claps,
+        source: :article
 
     has_many :comments, 
         class_name: :Comment, 

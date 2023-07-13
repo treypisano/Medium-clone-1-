@@ -7,7 +7,6 @@ class Api::UsersController < ApplicationController
         @user = User.new(user_params)
 
         if @user.save
-        # p @user.followed_users
         login(@user)
             render :show
         else
